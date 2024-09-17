@@ -5,8 +5,8 @@ import { MongoClient, ServerApiVersion } from "mongodb";
 // const password = encodeURIComponent("12167002337");
 
 // const uri = "mongodb+srv://stephaniejting:12167002337@HairBnB.66d0c02073f6c33cb91e5cd4.mongodb.net/employees?retryWrites=true&w=majorityPORT=5050"
-const uri = "mongodb+srv://stephaniejting:12167002337@hairbnb.rmuyh.mongodb.net/"
-const client = new MongoClient(uri, {
+const uri = "mongodb+srv://stephaniejting:12167002337@hairbnb.rmuyh.mongodb.net/" // Connection URIs encode all of the information required to connect to a given database within a single string.
+const client = new MongoClient(uri, { // mongoClient instance
   serverApi: {
     version: ServerApiVersion.v1,
     strict: true,
@@ -26,6 +26,6 @@ try {
   console.error(err);
 }
 
-let db = client.db("employees");
+let db = client.db("employees"); // selects a hypothetical "employees" database
 
 export default db;
