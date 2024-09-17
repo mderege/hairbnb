@@ -15,7 +15,6 @@ export default function Record() {
     async function fetchData() {
       const id = params.id?.toString() || undefined;
       if(!id) return;
-      setIsNew(false);
       const response = await fetch(
         `http://localhost:5050/record/${params.id.toString()}`
       );
@@ -43,32 +42,21 @@ export default function Record() {
     });
   }
 
-  // This function will handle the submission.
-  async function onSubmit(e) {
+// This function will handle the submission.
+async function onSubmit(e) {
     e.preventDefault();
     const person = { ...form };
     try {
-      let response;
-      if (isNew) {
-        // if we are adding a new record we will POST to /record.
-        response = await fetch("http://localhost:5050/record", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(person),
-        });
-      } else {
-        // if we are updating a record we will PATCH to /record/:id.
-        response = await fetch(`http://localhost:5050/record/${params.id}`, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(person),
-        });
-      }
-
+      // if the id is present, we will set the URL to /record/:id, otherwise we will set the URL to /record.
+      const response = await fetch(`http://localhost:5050/record${params.id ? "/"+params.id : ""}`, {
+        // if the id is present, we will use the PATCH method, otherwise we will use the POST method.
+        method: `${params.id ? "PATCH" : "POST"}`,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(person),
+      });
+  
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
