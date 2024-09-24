@@ -31,7 +31,7 @@ const router = createBrowserRouter([ // create a router with these routes
     ],
   },
   {
-    path: "/create", // create route
+    path: "/create", // creation route
     element: <App />,
     children: [
       {

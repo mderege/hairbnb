@@ -17,7 +17,7 @@ const router = express.Router();
 // This section will help you get a list of all the records.
 router.get("/", async (req, res) => {
   let collection = await db.collection("records"); // from the records collection
-  let results = await collection.find({}).toArray();
+  let results = await collection.find({}).toArray(); // finds and returns all records
   res.send(results).status(200);
 });
 
@@ -34,7 +34,7 @@ router.get("/:id", async (req, res) => {
 // This section will help you create a new record.
 router.post("/", async (req, res) => {
   try {
-    let newDocument = { // perhaps we change these up?
+    let newDocument = { // alter these!
       name: req.body.name,
       position: req.body.position,
       level: req.body.level,
