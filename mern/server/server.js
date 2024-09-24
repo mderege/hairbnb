@@ -9,6 +9,9 @@ app.use(cors()); // enables CORS for all routes
 app.use(express.json()); // parses incoming JSON payloads (A JSON payload is a set of key-value pairs that can represent various data types, such as objects, numbers, strings, arrays, booleans, and null)
 app.use("/record", records); // adds the records router to the /record path
 
+// e.g. accessing a certain record by ID might look like /record/1234
+// running /record gets all records
+
 // start the Express server
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`); // starts up the express server

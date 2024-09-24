@@ -13,10 +13,10 @@ export default function Record() {
 
   useEffect(() => {
     async function fetchData() {
-      const id = params.id?.toString() || undefined;
-      if(!id) return;
+      const id = params.id?.toString() || undefined; // if simply updating a record, use; if not, undefined
+      if(!id) return; // if not id, return
       const response = await fetch(
-        `http://localhost:5050/record/${params.id.toString()}`
+        `http://localhost:5050/record/${params.id.toString()}` // get data for existing record
       );
       if (!response.ok) {
         const message = `An error has occurred: ${response.statusText}`;
@@ -44,7 +44,7 @@ export default function Record() {
 
 // This function will handle the submission.
 async function onSubmit(e) {
-    e.preventDefault();
+    e.preventDefault(); // don't reload page
     const person = { ...form };
     try {
       // if the id is present, we will set the URL to /record/:id, otherwise we will set the URL to /record.
@@ -63,8 +63,8 @@ async function onSubmit(e) {
     } catch (error) {
       console.error('A problem occurred with your fetch operation: ', error);
     } finally {
-      setForm({ name: "", position: "", level: "" });
-      navigate("/");
+      setForm({ name: "", position: "", level: "" }); // empty form
+      navigate("/"); // go back to root directory
     }
   }
 
