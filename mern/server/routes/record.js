@@ -38,6 +38,10 @@ router.post("/", async (req, res) => {
       name: req.body.name,
       position: req.body.position,
       level: req.body.level,
+      email: req.body.email,
+      preferredService: req.body.preferredService,
+      hairType: req.body.hairType,
+      phoneNumber: req.body.phoneNumber,
     };
     let collection = await db.collection("records");
     let result = await collection.insertOne(newDocument);
@@ -57,6 +61,10 @@ router.patch("/:id", async (req, res) => {
         name: req.body.name,
         position: req.body.position,
         level: req.body.level,
+        email: req.body.email,
+        preferredService: req.body.preferredService,
+        hairType: req.body.hairType,
+        phoneNumber: req.body.phoneNumber,
       },
     };
 
