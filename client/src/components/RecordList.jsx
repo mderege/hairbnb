@@ -10,6 +10,9 @@ const Record = (props) => (
       {props.record.position}
     </td>
     <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
+      {props.record.email}
+    </td>
+    <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
       {props.record.level}
     </td>
     <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
@@ -90,6 +93,9 @@ useEffect(() => {
                 </th>
                 <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0">
                   Position
+                </th>
+                <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0">
+                  Email
                 </th>
                 <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0">
                   Level
