@@ -7,7 +7,7 @@ const Record = (props) => (
       {props.record.name}
     </td>
     <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
-      {props.record.position}
+      {props.record.personalStatement}
     </td>
     <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
       {props.record.email}
@@ -82,7 +82,7 @@ useEffect(() => {
   // This following section will display the table with the records of individuals.
   return (
     <>
-      <h3 className="text-lg font-semibold p-4">Employee Records</h3>
+      <h3 className="text-lg font-semibold p-4">User Records</h3>
       <div className="border rounded-lg overflow-hidden">
         <div className="relative w-full overflow-auto">
           <table className="w-full caption-bottom text-sm">
@@ -92,7 +92,7 @@ useEffect(() => {
                   Name
                 </th>
                 <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0">
-                  Position
+                  Personal Statement
                 </th>
                 <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0">
                   Email

@@ -4,12 +4,15 @@ import { useParams, useNavigate } from "react-router-dom";
 export default function Record() {
   const [form, setForm] = useState({
     name: "",
-    position: "",
+    personalStatement: "",
     level: "",
     email: "",
     preferredService: "",
     hairType: "",
     phoneNumber: "",
+    stylistHairstylesOffered: "",
+    stylistCertification: "",
+    yearsExperience: "",
   });
   const [isNew, setIsNew] = useState(true);
   const params = useParams();
@@ -67,7 +70,16 @@ async function onSubmit(e) {
     } catch (error) {
       console.error('A problem occurred with your fetch operation: ', error);
     } finally {
-      setForm({ name: "", position: "", level: "" , email: "", preferredService: "", hairType: "", phoneNumber: ""}); // empty form
+      setForm({ name: "", 
+        personalStatement: "", 
+        level: "" , 
+        email: "", 
+        preferredService: "", 
+        hairType: "", 
+        phoneNumber: "", 
+        stylistHairstylesOffered: "",
+        stylistCertification: "",
+        yearsExperience: "",}); // empty form
       navigate("/"); // go back to root directory
     }
   }
@@ -75,7 +87,7 @@ async function onSubmit(e) {
   // This following section will display the form that takes the input from the user.
   return (
     <>
-      <h3 className="text-lg font-semibold p-4">Create/Update Employee Record</h3>
+      <h3 className="text-lg font-semibold p-4">Create/Update User Profile</h3>
       <form
         onSubmit={onSubmit}
         className="border rounded-lg overflow-hidden p-4"
@@ -83,7 +95,7 @@ async function onSubmit(e) {
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-slate-900/10 pb-12 md:grid-cols-2">
           <div>
             <h2 className="text-base font-semibold leading-7 text-slate-900">
-              Employee Info
+              User Info
             </h2>
             <p className="mt-1 text-sm leading-6 text-slate-600">
               This information will be displayed to your stylist/client, so be careful what you share.
@@ -113,26 +125,7 @@ async function onSubmit(e) {
               </div>
             </div>
             <div className="sm:col-span-4">
-              <label
-                htmlFor="position"
-                className="block text-sm font-medium leading-6 text-slate-900"
-              >
-                Position
-              </label>
-              <div className="mt-2">
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-slate-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <input
-                    type="text"
-                    name="position"
-                    id="position"
-                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-slate-900 placeholder:text-slate-400 focus:ring-0 sm:text-sm sm:leading-6"
-                    placeholder="Developer Advocate"
-                    value={form.position}
-                    onChange={(e) => updateForm({ position: e.target.value })}
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-4 mt-6">
+              <div className="sm:col-span-4 mt-0">
               <label
                 htmlFor="email"
                 className="block text-sm font-medium leading-6 text-slate-900"
@@ -154,6 +147,21 @@ async function onSubmit(e) {
               </div>
             </div>
             </div>
+            <div className="sm:col-span-4">
+                    <label htmlFor="phoneNumber" className="block text-sm font-medium leading-6 text-slate-900">
+                      Phone Number
+                    </label>
+                    <div className="mt-2 flex rounded-md shadow-sm ring-1 ring-inset ring-slate-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                      <input
+                        type="text"
+                        id="phoneNumber"
+                        className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-slate-900 placeholder:text-slate-400 focus:ring-0 sm:text-sm sm:leading-6"
+                        placeholder="(555)-555 5555"
+                        value={form.phoneNumber}
+                        onChange={(e) => updateForm({ phoneNumber: e.target.value })}
+                      />
+                    </div>
+                  </div>
             <div>
               <fieldset className="mt-0">
                  <legend className="block text-sm font-medium leading-6 text-slate-900 mb-2">Position Options</legend> {/* was sr-only */}
@@ -214,8 +222,44 @@ async function onSubmit(e) {
                 <h4 className="text-base font-semibold leading-7 text-slate-900">Stylist Details</h4>
                 <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 mt-4">
                   <div className="sm:col-span-4">
+                  <label
+                  htmlFor="personalStatement"
+                  className="block text-sm font-medium leading-6 text-slate-900"
+                >
+                  Personal Statement
+                </label>
+                  <div className="mt-2">
+                    <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-slate-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                      <input
+                        type="text"
+                        name="personalStatement"
+                        id="personalStatement"
+                        className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-slate-900 placeholder:text-slate-400 focus:ring-0 sm:text-sm sm:leading-6"
+                        placeholder="e.g. 'I aim to ensure my customers never have another bad hair day!'"
+                        value={form.personalStatement}
+                        onChange={(e) => updateForm({ personalStatement: e.target.value })}
+                    />
+                  </div>
+                </div>
+                  </div>
+                  <div className="sm:col-span-4">
+                    <label htmlFor="stylistHairstylesOffered" className="block text-sm font-medium leading-6 text-slate-900">
+                    Hairstyles Offered
+                    </label>
+                    <div className="mt-2 flex rounded-md shadow-sm ring-1 ring-inset ring-slate-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                      <input
+                        type="text"
+                        id="stylistHairstylesOffered"
+                        className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-slate-900 placeholder:text-slate-400 focus:ring-0 sm:text-sm sm:leading-6"
+                        placeholder="e.g. fades, cornrows"
+                        value={form.stylistHairstylesOffered}
+                        onChange={(e) => updateForm({ stylistHairstylesOffered: e.target.value })}
+                      />
+                    </div>
+                  </div>
+                  <div className="sm:col-span-4">
                     <label htmlFor="stylistCertification" className="block text-sm font-medium leading-6 text-slate-900">
-                      Certification
+                      Certifications
                     </label>
                     <div className="mt-2 flex rounded-md shadow-sm ring-1 ring-inset ring-slate-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                       <input
@@ -223,6 +267,7 @@ async function onSubmit(e) {
                         id="stylistCertification"
                         className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-slate-900 placeholder:text-slate-400 focus:ring-0 sm:text-sm sm:leading-6"
                         placeholder="Certification"
+                        value={form.stylistCertification}
                         onChange={(e) => updateForm({ stylistCertification: e.target.value })}
                       />
                     </div>
@@ -237,6 +282,7 @@ async function onSubmit(e) {
                         id="yearsExperience"
                         className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-slate-900 placeholder:text-slate-400 focus:ring-0 sm:text-sm sm:leading-6"
                         placeholder="Years of Experience"
+                        value={form.yearsExperience}
                         onChange={(e) => updateForm({ yearsExperience: e.target.value })}
                       />
                     </div>
@@ -298,21 +344,6 @@ async function onSubmit(e) {
                       />
                     </div>
                   </div>
-                  <div className="sm:col-span-4">
-                    <label htmlFor="phoneNumber" className="block text-sm font-medium leading-6 text-slate-900">
-                      Phone Number
-                    </label>
-                    <div className="mt-2 flex rounded-md shadow-sm ring-1 ring-inset ring-slate-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                      <input
-                        type="text"
-                        id="phoneNumber"
-                        className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-slate-900 placeholder:text-slate-400 focus:ring-0 sm:text-sm sm:leading-6"
-                        placeholder="Service Type"
-                        value={form.phoneNumber}
-                        onChange={(e) => updateForm({ phoneNumber: e.target.value })}
-                      />
-                    </div>
-                  </div>
                   {/* <div className="sm:col-span-4">
                     <label htmlFor="frequencyOfVisit" className="block text-sm font-medium leading-6 text-slate-900">
                       Frequency of Visit
@@ -337,7 +368,7 @@ async function onSubmit(e) {
         </div>
         <input
           type="submit"
-          value="Save Employee Record"
+          value="Save Profile"
           className="inline-flex items-center justify-center whitespace-nowrap text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 hover:text-accent-foreground h-9 rounded-md px-3 cursor-pointer mt-4"
         />
       </form>

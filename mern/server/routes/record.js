@@ -36,12 +36,15 @@ router.post("/", async (req, res) => {
   try {
     let newDocument = { // alter these!
       name: req.body.name,
-      position: req.body.position,
+      personalStatement: req.body.personalStatement,
       level: req.body.level,
       email: req.body.email,
       preferredService: req.body.preferredService,
       hairType: req.body.hairType,
       phoneNumber: req.body.phoneNumber,
+      stylistHairstylesOffered: req.body.stylistHairstylesOffered,
+      stylistCertification: req.body.stylistCertification,
+      yearsExperience: req.body.yearsExperience,
     };
     let collection = await db.collection("records");
     let result = await collection.insertOne(newDocument);
@@ -59,12 +62,16 @@ router.patch("/:id", async (req, res) => {
     const updates = {
       $set: {
         name: req.body.name,
-        position: req.body.position,
+        personalStatement: req.body.personalStatement,
         level: req.body.level,
         email: req.body.email,
         preferredService: req.body.preferredService,
         hairType: req.body.hairType,
         phoneNumber: req.body.phoneNumber,
+        stylistHairstylesOffered: req.body.stylistHairstylesOffered,
+        stylistCertification: req.body.stylistCertification,
+        yearsExperience: req.body.yearsExperience,
+        
       },
     };
 
