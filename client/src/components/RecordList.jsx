@@ -78,6 +78,8 @@ const filteredRecords = records.filter((record) =>
 
   // This method will map out the records on the table
   function recordList() {
+    // const stylistRecords = filteredRecords.filter((record) => record.level === "Stylist"); // remove this line and add "filteredRecords" below to see all profiles
+    // return stylistRecords.map((record) => {
     return filteredRecords.map((record) => {
       return (
         <Record
