@@ -40,11 +40,12 @@ const Record = (props) => (
 
 export default function RecordList() {
   const [records, setRecords] = useState([]);
+  const [searchQuery, setSearchQuery] = useState(""); // State for search query
 
-// This method fetches the records from the database.
-useEffect(() => {
+  // This method fetches the records from the database.
+  useEffect(() => {
     async function getRecords() {
-      const response = await fetch(`http://localhost:5050/record/`); // gets records from backend
+      const response = await fetch(`http://localhost:5050/record/`);
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
         console.error(message);
@@ -54,7 +55,6 @@ useEffect(() => {
       setRecords(records);
     }
     getRecords();
-    return;
   }, [records.length]);
 
   // This method will delete a record
@@ -66,9 +66,21 @@ useEffect(() => {
     setRecords(newRecords);
   }
 
+  // Filter records based on the search query
+ // Filter records based on the search query
+const filteredRecords = records.filter((record) =>
+  record.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+  record.personalStatement?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+  record.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+  record.level?.toLowerCase().includes(searchQuery.toLowerCase())
+);
+
+
   // This method will map out the records on the table
   function recordList() {
-    return records.map((record) => {
+    // const stylistRecords = filteredRecords.filter((record) => record.level === "Stylist"); // remove this line and add "filteredRecords" below to see all profiles
+    // return stylistRecords.map((record) => {
+    return filteredRecords.map((record) => {
       return (
         <Record
           record={record}
@@ -79,10 +91,18 @@ useEffect(() => {
     });
   }
 
-  // This following section will display the table with the records of individuals.
   return (
     <>
       <h3 className="text-lg font-semibold p-4">User Records</h3>
+      <div className="p-4">
+        <input
+          type="text"
+          className="border p-2 rounded w-full"
+          placeholder="Search by name, personal statement, email, or level"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+      </div>
       <div className="border rounded-lg overflow-hidden">
         <div className="relative w-full overflow-auto">
           <table className="w-full caption-bottom text-sm">
