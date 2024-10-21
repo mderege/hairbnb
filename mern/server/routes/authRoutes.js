@@ -5,6 +5,3 @@ const Router = express.Router();
 
 
 Router.get("/google", authController.googleAuth);
-
-
-module.exports = Router;
