@@ -72,7 +72,7 @@ const filteredRecords = records.filter((record) =>
 );
 
 const SalonCard = ({ record }) => (
-  <div className="bg-white p-4 rounded-xl shadow-lg flex items-center mb-6 border-2 border-gray-100 hover:bg-gray-50 transition">
+  <div className="bg-white p-4 rounded-xl shadow-md flex items-center mb-6 border-2 border-gray-100 hover:bg-gray-50 transition">
     <div className="w-1/3">
       {/* Replace with actual image URL if available */}
       <img src={'https://www.salonsdirect.com/blog/wp-content/uploads/2020/11/A-Guide-to-Going-Freelance-as-a-Hairdresser-Slice.jpg'} className="rounded-lg object-cover" alt={record.name} />
@@ -125,7 +125,7 @@ const SalonCard = ({ record }) => (
   return (
     <div className="flex h-screen">
       {/* Sidebar */}
-      <aside className="bg-white w-1/3 p-6 overflow-y-auto ">
+      <aside className="bg-white w-1/3 px-2 overflow-y-auto ">
         {/* Header */}
         <div className="flex items-center justify-between">
           {/* Logo placeholder */}
@@ -135,20 +135,25 @@ const SalonCard = ({ record }) => (
         <div className="relative mb-6 filter drop-shadow-md">
           <input
             type="text"
-            className="w-full p-3 pl-12 rounded-full border border-gray-300 focus:ring-2 focus:ring-pink-500 focus:outline-none"
+            className="mt-2 w-full p-3 pl-12 rounded-full border border-gray-300 focus:ring-2 focus:ring-pink-500 focus:outline-none flex items-center"
             placeholder="Search for stylists..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <svg
-            className="w-6 h-6 text-gray-400 absolute left-4 top-3.5"
+          {/* <svg
+            className="w-6 h-6 text-gray-400 absolute left-4 top-1/2 transform -translate-y-1/2"
             xmlns="http://www.w3.org/2000/svg"
-            fill="none" viewBox="0 0 24 24"
+            fill="none"
+            viewBox="0 0 24 24"
             stroke="currentColor"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-              d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 100-15 7.5 7.5 0 000 15z" />
-          </svg>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 100-15 7.5 7.5 0 000 15z"
+            />
+          </svg> */}
         </div>
         {/* Filter Buttons */}
         <div className="flex flex-wrap justify-center gap-2 mb-6">
@@ -171,7 +176,7 @@ const SalonCard = ({ record }) => (
         </div>
       </aside>
       {/* Map Section */}
-      <div className="w-2/3 relative">
+      <div className="w-2/3 relative rounded-lg overflow-hidden ml-2 shadow-lg">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345093704!2d144.9537353153164!3d-37.8172099797517!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d43f0eec5c7%3A0x5045675218ceed4!2sMelbourne%20VIC%2C%20Australia!5e0!3m2!1sen!2sau!4v1614037668116!5m2!1sen!2sau" // Replace with your map embed link
           width="100%" height="100%" frameBorder="0" style={{ border: 0 }} allowFullScreen="" aria-hidden="false" tabIndex="0">
