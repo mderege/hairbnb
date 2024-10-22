@@ -10,6 +10,7 @@ import RecordList from "./components/RecordList";
 import Login from "./login/Login";
 import LandingPage from "./homepage/LandingPage"; // Import the LandingPage component
 import "./index.css";
+import StylistPage from "./components/StylingPage"
 
 const router = createBrowserRouter([ // create a router with these routes
   {
@@ -62,10 +63,40 @@ const router = createBrowserRouter([ // create a router with these routes
       },
     ],
   },
+  {
+    path: "/StylistPage",
+    element: <App />,
+    children: [
+      {
+        index: true,
+        element: <StylistPage />,
+      },
+    ],
+  },
+  // {
+  //   path: "/stylistpage",
+  //   element: <App />,
+  //   children: [
+  //     {
+  //       index: true,
+  //       element: <StylistPage />,
+  //     },
+  //   ],
+  // },
+  {
+    path: "/stylist/:id",
+    element: <App />,
+    children: [
+      {
+        index: true,
+        element: <StylistPage />,
+      },
+    ],
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render( // renders the app
-  <React.StrictMode>
+  // <React.StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>
+  // </React.StrictMode>
 );

@@ -45,6 +45,7 @@ router.post("/", async (req, res) => {
       stylistHairstylesOffered: req.body.stylistHairstylesOffered,
       stylistCertification: req.body.stylistCertification,
       yearsExperience: req.body.yearsExperience,
+      stylistAvailabilities: req.body.stylistAvailabilities,
     };
     let collection = await db.collection("records");
     let result = await collection.insertOne(newDocument);
@@ -71,6 +72,7 @@ router.patch("/:id", async (req, res) => {
         stylistHairstylesOffered: req.body.stylistHairstylesOffered,
         stylistCertification: req.body.stylistCertification,
         yearsExperience: req.body.yearsExperience,
+        stylistAvailabilities: req.body.stylistAvailabilities,
         
       },
     };
