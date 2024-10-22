@@ -13,8 +13,10 @@ export default function Record() {
     stylistHairstylesOffered: "",
     stylistCertification: "",
     yearsExperience: "",
+    stylistAvailabilities: [],
   });
   // const [isNew, setIsNew] = useState(true);
+  const [selectedSlot, setSelectedSlot] = useState("");
   const params = useParams();
   const navigate = useNavigate();
 
@@ -46,6 +48,22 @@ export default function Record() {
     return setForm((prev) => {
       return { ...prev, ...value };
     });
+  }
+  const handleAddSlot = () => {
+    if (selectedSlot.trim() != "") {
+      console.log(selectedSlot);
+      updateForm({ stylistAvailabilities: [...form.stylistAvailabilities, selectedSlot] });
+      setSelectedSlot(""); // Clear input field after adding
+    } else {
+      alert("Please select a valid time slot.");
+    }
+  }
+
+  const handleRemoveSlot = (slotToRemove) => {
+    const updatedSlots = form.stylistAvailabilities.filter(
+      (slot) => slot !== slotToRemove
+    );
+    updateForm({ stylistAvailabilities: updatedSlots });
   }
 
 async function onSubmit(e) {
@@ -79,7 +97,9 @@ async function onSubmit(e) {
         phoneNumber: "", 
         stylistHairstylesOffered: "",
         stylistCertification: "",
-        yearsExperience: "",});
+        yearsExperience: "",
+        stylistAvailabilities: [],
+      });
       navigate("/");
     }
   }
@@ -246,6 +266,50 @@ async function onSubmit(e) {
                   value={form.yearsExperience}
                   onChange={(e) => updateForm({ yearsExperience: e.target.value })}
                 />
+              </div>
+              <div>
+                <label
+                  htmlFor="Stylist Availability"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Stylist Availabilities
+                </label>
+                <input
+                  type="datetime-local"
+                  id="stylistAvailability"
+                  className="w-full border-2 border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                  value={selectedSlot}
+                  onChange={(e) => setSelectedSlot(e.target.value)}
+                />
+                <button
+                  type="button"
+                  onClick={handleAddSlot}
+                  className="mt-2 bg-pink-500 text-white py-1 px-4 rounded-md"
+                  >
+                  Add Slot
+                </button>
+                <div className="mt-4">
+                <h4 className="text-sm font-medium text-gray-700">Selected Slots:</h4>
+                  {form.stylistAvailabilities.length === 0 && (
+                    <p>No slots added </p>
+                  )}
+                  {form.stylistAvailabilities.length > 0 && (
+                    <ul className="mt-2 space-y-1">
+                      {form.stylistAvailabilities.map((slot) => (
+                        <li key={slot} className="flex justify-between">
+                          <span>{new Date(slot).toLocaleString()}</span>
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveSlot(slot)}
+                            className="text-red-500"
+                          >
+                           Remove
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
               </div>
             </div>
           </div>
