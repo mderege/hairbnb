@@ -4,12 +4,12 @@ import LoginPage from './LoginPage';
 function App() {
     const setUser  = (user) => {
         console.log(user);
-        // Handle user state here
+        window.location.href = '/'
     };
 
     return (
         <div>
-            <LoginPage setUser ={setUser } />
+            <LoginPage setUser ={setUser} />
         </div>
     );
 }

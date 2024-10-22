@@ -20,7 +20,7 @@ function App() {
 	const [user, setUser] = useState();
 
 	return (
-		<GoogleOAuthProvider clientId="163584497548-6uovpebrvioqdepje90dinuagvi60ulc.apps.googleusercontent.com">
+		<GoogleOAuthProvider clientId="989487628694-ku7po9jejcpcqk5d8itqrrb0s22vlac0.apps.googleusercontent.com">
 			<div className="App">
 				<GoogleLogin setUser={setUser}></GoogleLogin>
 				{user && user.name}
