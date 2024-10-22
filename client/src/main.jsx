@@ -7,6 +7,7 @@ import {
 import App from "./App";
 import Record from "./components/Record";
 import RecordList from "./components/RecordList";
+import Login from "./login/Login";
 import LandingPage from "./homepage/LandingPage"; // Import the LandingPage component
 import "./index.css";
 
@@ -48,6 +49,16 @@ const router = createBrowserRouter([ // create a router with these routes
       {
         path: "/landing",
         element: <LandingPage />,
+      },
+    ],
+  },
+  {
+    path: "/login",
+    element: <App />,
+    children: [
+      {
+        index: true,
+        element: <Login />,
       },
     ],
   },

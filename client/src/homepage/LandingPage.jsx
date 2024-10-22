@@ -105,10 +105,10 @@ function LandingPage() {
               </div>
               <div className="col-lg-5" data-aos="fade-up" data-aos-delay="300">
                 {/* FIXME: make sign up button just go down to next section */}
-                <form action="forms/newsletter.php" method="post" className="php-email-form">
+                <form action="/login" method="get" className="php-email-form">
                   <div className="sign-up-form">
                     <input type="email" name="email" />
-                    <input type="submit" value="Sign up / Log in" />
+                    <input type="submit" onClick="window.location.href = 'locahost:5173/';" value="Sign up / Log in" />
                   </div>
                   <div className="loading">Loading</div>
                   <div className="error-message"></div>
