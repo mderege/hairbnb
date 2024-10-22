@@ -105,10 +105,17 @@ function LandingPage() {
               </div>
               <div className="col-lg-5" data-aos="fade-up" data-aos-delay="300">
                 {/* FIXME: make sign up button just go down to next section */}
-                <form action="/login" method="get" className="php-email-form">
+                <form 
+                  onSubmit={(e) => {
+                    e.preventDefault(); // Prevent the default form submission
+                    const email = e.target.elements.email.value;
+                    localStorage.setItem('email', email); // Save the email to localStorage
+                    window.location.href = '/login'; // Redirect to the login page
+                  }}
+                >
                   <div className="sign-up-form">
-                    <input type="email" name="email" />
-                    <input type="submit" onClick="window.location.href = 'locahost:5173/';" value="Sign up / Log in" />
+                    <input type="email" name="email" required />
+                    <input type="submit" value="Sign up / Log in" />
                   </div>
                   <div className="loading">Loading</div>
                   <div className="error-message"></div>
