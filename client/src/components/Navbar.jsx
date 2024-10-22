@@ -2,16 +2,47 @@ import { NavLink } from "react-router-dom";
 
 export default function Navbar() {
   return (
-    <div>
-      <nav className="flex justify-between items-center mb-6">
-        <NavLink to="/">
-          {/* <img alt="MongoDB logo" className="h-10 inline" src="https://d3cy9zhslanhfa.cloudfront.net/media/3800C044-6298-4575-A05D5C6B7623EE37/4B45D0EC-3482-4759-82DA37D8EA07D229/webimage-8A27671A-8A53-45DC-89D7BF8537F15A0D.png"></img> */}
-          <img alt="HairBnB logo" className="h-10 inline" src="/hairbnblogonobackground.png"></img>
+    <div className="bg-white shadow-md fixed top-0 left-0 right-0 z-10 mb-6">
+      <nav className="container mx-auto flex justify-between items-center py-4">
+        {/* Logo and Site Name */}
+        <NavLink to="/" className="flex items-center">
+          <img
+            alt="Hairbnb logo"
+            className="h-10 ml-4"
+            src="/hairbnblogonobackground.png"
+          />
+          <h1 className="text-2xl font-bold ml-2">Hairbnb</h1>
         </NavLink>
 
-        <NavLink className="inline-flex items-center justify-center whitespace-nowrap text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 h-9 rounded-md px-3" to="/create">
-          Add Account
-        </NavLink>
+        {/* Navigation Links */}
+        <div className="hidden md:flex space-x-6">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive ? "text-pink-500 font-bold text-lg transition ease-in duration-100" : "text-gray-600 hover:text-pink-500 font-semibold text-lg transition ease-in duration-100"
+            }
+          >
+            Stylists
+          </NavLink>
+          <NavLink
+            to="/landing"
+            className={({ isActive }) =>
+              isActive ? "text-pink-500 font-bold text-lg transition ease-in duration-100" : "text-gray-600 hover:text-pink-500 font-semibold text-lg transition ease-in duration-100"
+            }
+          >
+            About
+          </NavLink>
+        </div>
+
+        {/* Get Started Button */}
+        <div className="flex items-center">
+          <NavLink
+            to="/create"
+            className="bg-pink-500 shadow-md text-white px-4 py-2 rounded-full mr-4 hover:bg-pink-600 transition ease-in duration-100"
+          >
+            Get Started
+          </NavLink>
+        </div>
       </nav>
     </div>
   );
