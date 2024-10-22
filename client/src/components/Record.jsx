@@ -13,8 +13,10 @@ export default function Record() {
     stylistHairstylesOffered: "",
     stylistCertification: "",
     yearsExperience: "",
+    stylistAvailabilities: [],
   });
   // const [isNew, setIsNew] = useState(true);
+  const [selectedSlot, setSelectedSlot] = useState("");
   const params = useParams();
   const navigate = useNavigate();
 
@@ -46,6 +48,22 @@ export default function Record() {
     return setForm((prev) => {
       return { ...prev, ...value };
     });
+  }
+  const handleAddSlot = () => {
+    if (selectedSlot.trim() != "") {
+      console.log(selectedSlot);
+      updateForm({ stylistAvailabilities: [...form.stylistAvailabilities, selectedSlot] });
+      setSelectedSlot(""); // Clear input field after adding
+    } else {
+      alert("Please select a valid time slot.");
+    }
+  }
+
+  const handleRemoveSlot = (slotToRemove) => {
+    const updatedSlots = form.stylistAvailabilities.filter(
+      (slot) => slot !== slotToRemove
+    );
+    updateForm({ stylistAvailabilities: updatedSlots });
   }
 
 async function onSubmit(e) {
@@ -79,7 +97,9 @@ async function onSubmit(e) {
         phoneNumber: "", 
         stylistHairstylesOffered: "",
         stylistCertification: "",
-        yearsExperience: "",});
+        yearsExperience: "",
+        stylistAvailabilities: [],
+      });
       navigate("/");
     }
   }
@@ -107,7 +127,7 @@ async function onSubmit(e) {
             <input
               type="text"
               id="name"
-              className="w-full border-2 border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              className="w-full border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
               placeholder="First Last"
               value={form.name}
               onChange={(e) => updateForm({ name: e.target.value })}
@@ -124,7 +144,7 @@ async function onSubmit(e) {
             <input
               type="email"
               id="email"
-              className="w-full border-2 border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              className="w-full border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
               placeholder="yourname@example.com"
               value={form.email}
               onChange={(e) => updateForm({ email: e.target.value })}
@@ -141,7 +161,7 @@ async function onSubmit(e) {
             <input
               type="tel"
               id="phoneNumber"
-              className="w-full border-2 border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              className="w-full border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
               placeholder="(555) 555-5555"
               value={form.phoneNumber}
               onChange={(e) => updateForm({ phoneNumber: e.target.value })}
@@ -156,7 +176,7 @@ async function onSubmit(e) {
             </label>
             <select
               id="level"
-              className="w-full border-2 border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              className="w-full border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
               value={form.level}
               onChange={(e) => updateForm({ level: e.target.value })}
               required
@@ -184,7 +204,7 @@ async function onSubmit(e) {
                 </label>
                 <textarea
                   id="personalStatement"
-                  className="w-full border-2 border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                  className="w-full border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
                   placeholder="Tell us about yourself..."
                   value={form.personalStatement}
                   onChange={(e) => updateForm({ personalStatement: e.target.value })}
@@ -193,7 +213,7 @@ async function onSubmit(e) {
                 />
               </div>
               <div className="text-sm text-gray-500">
-                  {form.personalStatement?.length || 0}/200 characters
+                  {form.personalStatement.length}/200 characters
                 </div>
               <div>
                 <label
@@ -205,7 +225,7 @@ async function onSubmit(e) {
                 <input
                   type="text"
                   id="stylistHairstylesOffered"
-                  className="w-full border-2 border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                  className="w-full border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
                   placeholder="e.g., fades, cornrows"
                   value={form.stylistHairstylesOffered}
                   onChange={(e) =>
@@ -223,7 +243,7 @@ async function onSubmit(e) {
                 <input
                   type="text"
                   id="stylistCertification"
-                  className="w-full border-2 border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                  className="w-full border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
                   placeholder="e.g., Licensed Barber"
                   value={form.stylistCertification}
                   onChange={(e) =>
@@ -241,11 +261,55 @@ async function onSubmit(e) {
                 <input
                   type="number"
                   id="yearsExperience"
-                  className="w-full border-2 border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                  className="w-full border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
                   placeholder="e.g., 5"
                   value={form.yearsExperience}
                   onChange={(e) => updateForm({ yearsExperience: e.target.value })}
                 />
+              </div>
+              <div>
+                <label
+                  htmlFor="Stylist Availability"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Stylist Availabilities
+                </label>
+                <input
+                  type="datetime-local"
+                  id="stylistAvailability"
+                  className="w-full border-2 border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                  value={selectedSlot}
+                  onChange={(e) => setSelectedSlot(e.target.value)}
+                />
+                <button
+                  type="button"
+                  onClick={handleAddSlot}
+                  className="mt-2 bg-pink-500 text-white py-1 px-4 rounded-md"
+                  >
+                  Add Slot
+                </button>
+                <div className="mt-4">
+                <h4 className="text-sm font-medium text-gray-700">Selected Slots:</h4>
+                  {form.stylistAvailabilities.length === 0 && (
+                    <p>No slots added </p>
+                  )}
+                  {form.stylistAvailabilities.length > 0 && (
+                    <ul className="mt-2 space-y-1">
+                      {form.stylistAvailabilities.map((slot) => (
+                        <li key={slot} className="flex justify-between">
+                          <span>{new Date(slot).toLocaleString()}</span>
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveSlot(slot)}
+                            className="text-red-500"
+                          >
+                           Remove
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -267,7 +331,7 @@ async function onSubmit(e) {
                 </label>
                 <select
                   id="hairType"
-                  className="w-full border-2 border-gray-300 rounded-md shadow-sm p-1 focus:ring-pink-500 focus:border-pink-500"
+                  className="w-full border-gray-300 rounded-md shadow-sm p-1 focus:ring-pink-500 focus:border-pink-500"
                   value={form.hairType}
                   onChange={(e) => updateForm({ hairType: e.target.value })}
                 >
@@ -296,7 +360,7 @@ async function onSubmit(e) {
                 <input
                   type="text"
                   id="preferredService"
-                  className="w-full border-2 border-gray-300 rounded-md shadow-sm p-1 focus:ring-pink-500 focus:border-pink-500"
+                  className="w-full border-gray-300 rounded-md shadow-sm p-1 focus:ring-pink-500 focus:border-pink-500"
                   placeholder="e.g., Haircut, Coloring"
                   value={form.preferredService}
                   onChange={(e) =>

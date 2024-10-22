@@ -7,15 +7,23 @@ export default function Navbar() {
         {/* Logo and Site Name */}
         <NavLink to="/" className="flex items-center">
           <img
-            alt="Hairbnb logo"
+            alt="HairBnB logo"
             className="h-10 ml-4"
             src="/hairbnblogonobackground.png"
           />
-          <h1 className="text-2xl font-bold ml-2">Hairbnb</h1>
+          <h1 className="text-2xl font-bold ml-2">HairBnB</h1>
         </NavLink>
 
         {/* Navigation Links */}
         <div className="hidden md:flex space-x-6">
+        <NavLink
+            to="/landing"
+            className={({ isActive }) =>
+              isActive ? "text-pink-500 font-bold text-lg transition ease-in duration-100" : "text-gray-600 hover:text-pink-500 font-semibold text-lg transition ease-in duration-100"
+            }
+          >
+            Home
+          </NavLink>
           <NavLink
             to="/"
             className={({ isActive }) =>
@@ -23,14 +31,6 @@ export default function Navbar() {
             }
           >
             Stylists
-          </NavLink>
-          <NavLink
-            to="/landing"
-            className={({ isActive }) =>
-              isActive ? "text-pink-500 font-bold text-lg transition ease-in duration-100" : "text-gray-600 hover:text-pink-500 font-semibold text-lg transition ease-in duration-100"
-            }
-          >
-            About
           </NavLink>
         </div>
 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // Import the hook
 
 // const Record = (props) => (
 //   <tr className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
@@ -71,14 +72,26 @@ const filteredRecords = records.filter((record) =>
   record.level?.toLowerCase().includes(searchQuery.toLowerCase())
 );
 
-const SalonCard = ({ record }) => (
+const SalonCard = ({ record }) => {
+  const navigate = useNavigate(); // Initialize the navigate function
+
+  const handleProfileClick = () => {
+    // Redirect to the stylist's profile page
+    navigate(`/stylist/${record._id}`);
+  };
+
+  const handleBookingClick = () => {
+    // Redirect to the booking page for the stylist
+    navigate(`/stylist/${record._id}/book`);
+  };
+  return (
   <div className="bg-white p-4 rounded-xl shadow-md flex items-center mb-6 border-2 border-gray-100 hover:bg-gray-50 transition">
     <div className="w-1/3">
       {/* Replace with actual image URL if available */}
       <img src={'https://www.salonsdirect.com/blog/wp-content/uploads/2020/11/A-Guide-to-Going-Freelance-as-a-Hairdresser-Slice.jpg'} className="rounded-lg object-cover" alt={record.name} />
     </div>
     <div className="ml-4 w-2/3">
-      <h3 className="font-semibold text-xl text-gray-800">{record.name}</h3>
+      <h3 onClick={handleProfileClick} className="font-semibold text-xl text-gray-800">{record.name}</h3>
       <p className="text-sm text-gray-500 mt-1">{record.personalStatement || 'No personal statement provided'}</p>
       <div className="mt-4 space-y-1 text-sm text-gray-600">
         <div className="flex justify-between">
@@ -105,17 +118,11 @@ const SalonCard = ({ record }) => (
         >
           Delete
         </button> */}
-        <button
-          className="text-red-600 hover:text-red-800 font-medium text-sm"
-          type="button"
-          onClick={() => deleteRecord(record._id)}
-        >
-          Book
-        </button> 
       </div>
     </div>
   </div>
-);
+  );
+};
 
 
   // This method will map out the records on the table
