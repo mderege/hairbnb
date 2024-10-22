@@ -118,13 +118,6 @@ const SalonCard = ({ record }) => {
         >
           Delete
         </button> */}
-        <button
-          className="text-red-600 hover:text-red-800 font-medium text-sm"
-          type="button"
-          onClick={handleBookingClick}
-        >
-          Book
-        </button> 
       </div>
     </div>
   </div>
