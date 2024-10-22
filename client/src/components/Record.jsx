@@ -107,7 +107,7 @@ async function onSubmit(e) {
             <input
               type="text"
               id="name"
-              className="w-full border-2 border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              className="w-full border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
               placeholder="First Last"
               value={form.name}
               onChange={(e) => updateForm({ name: e.target.value })}
@@ -124,7 +124,7 @@ async function onSubmit(e) {
             <input
               type="email"
               id="email"
-              className="w-full border-2 border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              className="w-full border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
               placeholder="yourname@example.com"
               value={form.email}
               onChange={(e) => updateForm({ email: e.target.value })}
@@ -141,7 +141,7 @@ async function onSubmit(e) {
             <input
               type="tel"
               id="phoneNumber"
-              className="w-full border-2 border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              className="w-full border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
               placeholder="(555) 555-5555"
               value={form.phoneNumber}
               onChange={(e) => updateForm({ phoneNumber: e.target.value })}
@@ -156,7 +156,7 @@ async function onSubmit(e) {
             </label>
             <select
               id="level"
-              className="w-full border-2 border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              className="w-full border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
               value={form.level}
               onChange={(e) => updateForm({ level: e.target.value })}
               required
@@ -184,7 +184,7 @@ async function onSubmit(e) {
                 </label>
                 <textarea
                   id="personalStatement"
-                  className="w-full border-2 border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                  className="w-full border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
                   placeholder="Tell us about yourself..."
                   value={form.personalStatement}
                   onChange={(e) => updateForm({ personalStatement: e.target.value })}
@@ -193,7 +193,7 @@ async function onSubmit(e) {
                 />
               </div>
               <div className="text-sm text-gray-500">
-                  {form.personalStatement?.length || 0}/200 characters
+                  {form.personalStatement.length}/200 characters
                 </div>
               <div>
                 <label
@@ -205,7 +205,7 @@ async function onSubmit(e) {
                 <input
                   type="text"
                   id="stylistHairstylesOffered"
-                  className="w-full border-2 border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                  className="w-full border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
                   placeholder="e.g., fades, cornrows"
                   value={form.stylistHairstylesOffered}
                   onChange={(e) =>
@@ -223,7 +223,7 @@ async function onSubmit(e) {
                 <input
                   type="text"
                   id="stylistCertification"
-                  className="w-full border-2 border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                  className="w-full border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
                   placeholder="e.g., Licensed Barber"
                   value={form.stylistCertification}
                   onChange={(e) =>
@@ -241,7 +241,7 @@ async function onSubmit(e) {
                 <input
                   type="number"
                   id="yearsExperience"
-                  className="w-full border-2 border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                  className="w-full border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
                   placeholder="e.g., 5"
                   value={form.yearsExperience}
                   onChange={(e) => updateForm({ yearsExperience: e.target.value })}
@@ -267,7 +267,7 @@ async function onSubmit(e) {
                 </label>
                 <select
                   id="hairType"
-                  className="w-full border-2 border-gray-300 rounded-md shadow-sm p-1 focus:ring-pink-500 focus:border-pink-500"
+                  className="w-full border-gray-300 rounded-md shadow-sm p-1 focus:ring-pink-500 focus:border-pink-500"
                   value={form.hairType}
                   onChange={(e) => updateForm({ hairType: e.target.value })}
                 >
@@ -296,7 +296,7 @@ async function onSubmit(e) {
                 <input
                   type="text"
                   id="preferredService"
-                  className="w-full border-2 border-gray-300 rounded-md shadow-sm p-1 focus:ring-pink-500 focus:border-pink-500"
+                  className="w-full border-gray-300 rounded-md shadow-sm p-1 focus:ring-pink-500 focus:border-pink-500"
                   placeholder="e.g., Haircut, Coloring"
                   value={form.preferredService}
                   onChange={(e) =>
