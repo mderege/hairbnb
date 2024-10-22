@@ -92,7 +92,7 @@ const SalonCard = ({ record }) => (
       </div>
       {/* Edit and Delete buttons */}
       <div className="flex gap-4 mt-4">
-        <Link
+        {/* <Link
           className="text-blue-600 hover:text-blue-800 font-medium text-sm"
           to={`/edit/${record._id}`}
         >
@@ -104,7 +104,14 @@ const SalonCard = ({ record }) => (
           onClick={() => deleteRecord(record._id)}
         >
           Delete
-        </button>
+        </button> */}
+        <button
+          className="text-red-600 hover:text-red-800 font-medium text-sm"
+          type="button"
+          onClick={() => deleteRecord(record._id)}
+        >
+          Book
+        </button> 
       </div>
     </div>
   </div>
