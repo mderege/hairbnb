@@ -10,21 +10,40 @@ const StylistPage = () => {
   const [selectedTime, setSelectedTime] = useState(null);
 
   useEffect(() => {
-    // Fetch stylist data
     const fetchStylist = async () => {
-      const response = await fetch(`http://localhost:5050/record/${id}`);
-      if (!response.ok) {
-        console.error('Failed to fetch stylist data');
-        return;
+      try {
+        const response = await fetch(`http://localhost:5050/record/${id}`);
+        if (!response.ok) {
+          console.error('Failed to fetch stylist data');
+          return;
+        }
+        const stylistData = await response.json();
+        setStylist(stylistData);
+
+        // Map stylistAvailabilities to bookings
+        const availableTimes = stylistData.stylistAvailabilities.map((timeString, index) => ({
+          id: index + 1,
+          time: new Date(timeString).toLocaleString('en-US', {
+            weekday: 'long',
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: true,
+          }),
+        }));
+
+        setBookings(availableTimes);
+        console.log('Bookings:', availableTimes); // Debug output
+      } catch (error) {
+        console.error('Error fetching stylist data:', error);
       }
-      const stylistData = await response.json();
-      setStylist(stylistData);
     };
 
-    // Sample data for posts, reviews, and bookings
+    fetchStylist(); // Fetch stylist details on component mount
+
+    // Sample data for posts and reviews (You might want to replace this with a real API call)
     setPosts([
-      { id: 1, image: "/images/style1.jpg", description: "Classic Bob Cut" },
-      { id: 2, image: "/images/style2.jpg", description: "Layered Hair" },
+      { id: 1, image: "https://live-essnc.s3.amazonaws.com/uploads/2024/06/sleek-blunt-bob.png", description: "Classic Bob Cut" },
+      { id: 2, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLuvLiv6FufJ1hBdu2VWyzrHR48H4rErCJIA&s", description: "Layered Hair" },
     ]);
 
     setReviews([
@@ -32,13 +51,6 @@ const StylistPage = () => {
       { id: 2, name: "John Smith", rating: 4, comment: "Very professional!" },
     ]);
 
-    setBookings([
-      { id: 1, time: "10:00 AM" },
-      { id: 2, time: "2:00 PM" },
-      { id: 3, time: "4:00 PM" },
-    ]);
-
-    fetchStylist(); // Fetch stylist details on component mount
   }, [id]);
 
   const handleBooking = () => {
@@ -70,7 +82,6 @@ const StylistPage = () => {
           <p><strong>Experience:</strong> {stylist.yearsExperience || 'N/A'} years</p>
           <p><strong>Hairstyles Offered:</strong> {stylist.stylistHairstylesOffered || 'N/A'}</p>
           <p><strong>Certifications:</strong> {stylist.stylistCertification || 'N/A'}</p>
-          {/* Add more stylist details as needed */}
         </div>
       </section>
 
@@ -98,10 +109,7 @@ const StylistPage = () => {
         <h2 className="text-3xl font-semibold text-gray-700 mb-6">Customer Reviews</h2>
         <div className="space-y-6">
           {reviews.map((review) => (
-            <div
-              key={review.id}
-              className="bg-gray-100 p-6 rounded-lg shadow-md"
-            >
+            <div key={review.id} className="bg-gray-100 p-6 rounded-lg shadow-md">
               <p className="text-lg font-semibold text-gray-800">{review.name}</p>
               <p className="text-yellow-500 mb-2">
                 {`Rating: ${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}`}
