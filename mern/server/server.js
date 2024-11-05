@@ -1,15 +1,29 @@
-import express from "express"; // web framework for node.js
-import cors from "cors";
-import records from "./routes/record.js";
-import sendEmail from "./utils/emailNotif.js";
+import dotenv from 'dotenv';
+dotenv.config(); // Load environment variables
 
+import express from 'express';
+import cors from 'cors';
+import mongoose from 'mongoose';
+import records from './routes/record.js';
+import sendEmail from './utils/emailNotif.js';
+import authRoutes from './routes/authRoutes.js';
 
-const PORT = process.env.PORT || 5050; // chosen port for server
-const app = express(); // instance of the Express application
+dotenv.config();
 
-app.use(cors()); // enables CORS for all routes
-app.use(express.json()); // parses incoming JSON payloads (A JSON payload is a set of key-value pairs that can represent various data types, such as objects, numbers, strings, arrays, booleans, and null)
-app.use("/record", records); // adds the records router to the /record path
+// Rest of your code
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+
+mongoose.connect('mongodb+srv://stephaniejting:12167002337@hairbnb.rmuyh.mongodb.net/', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}).then(() => console.log("Connected to MongoDB"))
+  .catch((error) => console.error("MongoDB connection error:", error));
+
+app.use('/api/auth', authRoutes); // Use the default import directly
+app.use("/record", records);
 
 app.post("/api/sendmail", async (req, res) => {
   const { email, bookingTime, stylistName } = req.body;
@@ -23,17 +37,16 @@ app.post("/api/sendmail", async (req, res) => {
     `;
     const emailSender = process.env.EMAIL_USER;
     const replySend = process.env.EMAIL_USER;
-    const emailReciepient = 'mahlet.derege@vanderbilt.edu'
-    await sendEmail(emailSubject, emailMessage, emailReciepient, emailSender, replySend)
-    res.status(200).json({success: true, message: "Email Sent"})
-  } catch (error){
-    res.status(500).json(error.message)
+    const emailRecipient = email;
+
+    await sendEmail(emailSubject, emailMessage, emailRecipient, emailSender, replySend);
+    res.status(200).json({ success: true, message: "Email Sent" });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
   }
 });
-// e.g. accessing a certain record by ID might look like /record/1234
-// running /record gets all records
 
-// start the Express server
+const PORT = process.env.PORT || 5050;
 app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`); // starts up the express server
+  console.log(`Server listening on port ${PORT}`);
 });
