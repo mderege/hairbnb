@@ -33,6 +33,14 @@ export default function Navbar() {
             Stylists
           </NavLink>
         </div>
+        <div className="flex items-center">
+          <NavLink
+            to="/ProfilePage"
+            className="bg-pink-500 shadow-md text-white px-4 py-2 rounded-full mr-4 hover:bg-pink-600 transition ease-in duration-100"
+          >
+            My Profile
+          </NavLink>
+        </div>
 
         {/* Get Started Button */}
         <div className="flex items-center">
