@@ -16,10 +16,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect('mongodb+srv://stephaniejting:12167002337@hairbnb.rmuyh.mongodb.net/', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}).then(() => console.log("Connected to MongoDB"))
+mongoose.connect("mongodb+srv://stephaniejting:12167002337@hairbnb.rmuyh.mongodb.net/")
+  .then(() => console.log("Connected to MongoDB"))
   .catch((error) => console.error("MongoDB connection error:", error));
 
 app.use('/api/auth', authRoutes); // Use the default import directly
