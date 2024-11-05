@@ -157,13 +157,6 @@ const StylistPage = () => {
         ) : (
           <p className="text-gray-500">No available booking times.</p>
         )}
-        <input
-          type="email"
-          placeholder="Enter your email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="mt-4 p-2 border border-gray-300 rounded-md"
-        />
         <button
           onClick={handleBooking}
           className="mt-6 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-200"
