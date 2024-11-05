@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 const StylistPage = () => {
   const { id } = useParams(); // Get the stylist's ID from the URL
@@ -8,6 +9,7 @@ const StylistPage = () => {
   const [reviews, setReviews] = useState([]);
   const [bookings, setBookings] = useState([]);
   const [selectedTime, setSelectedTime] = useState(null);
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     const fetchStylist = async () => {
@@ -53,11 +55,25 @@ const StylistPage = () => {
 
   }, [id]);
 
+  const sendEmail = async () => {
+    try {
+      const response = await axios.post("http://localhost:5050/api/sendmail", {
+        email,
+        bookingTime: selectedTime,
+        stylistName: stylist.name
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error sending email:", error);
+    }
+  };
+
   const handleBooking = () => {
     if (selectedTime) {
       alert(`You've booked a slot at ${selectedTime}`);
       // Remove the booked time from the bookings array
       setBookings(bookings.filter((booking) => booking.time !== selectedTime));
+      sendEmail();
       setSelectedTime(null); // Clear the selected time
     } else {
       alert("Please select a time.");
@@ -141,6 +157,13 @@ const StylistPage = () => {
         ) : (
           <p className="text-gray-500">No available booking times.</p>
         )}
+        <input
+          type="email"
+          placeholder="Enter your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="mt-4 p-2 border border-gray-300 rounded-md"
+        />
         <button
           onClick={handleBooking}
           className="mt-6 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-200"
