@@ -11,8 +11,23 @@ import Login from "./login/Login";
 import LandingPage from "./homepage/LandingPage"; // Import the LandingPage component
 import "./index.css";
 import StylistPage from "./components/StylingPage"
+import ProfilePage from "./components/ProfilePage";
 
 const router = createBrowserRouter([ // create a router with these routes
+  {
+    path: "/", // "/" sets up the home route and renders the App component with the RecordList as a child
+    element: <App />,
+    children: [
+      {
+        path: "/",
+        element: <RecordList />,
+      },
+      {
+        path: "/ProfilePage",
+        element: <ProfilePage />,
+      },
+    ],
+  },
   {
     path: "/", // "/" sets up the home route and renders the App component with the RecordList as a child
     element: <App />,

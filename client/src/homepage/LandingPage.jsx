@@ -113,13 +113,10 @@ function LandingPage() {
                     window.location.href = '/login'; // Redirect to the login page
                   }}
                 >
-                  <div className="sign-up-form">
+                  {/* <div className="sign-up-form">
                     <input type="email" name="email" required />
                     <input type="submit" value="Sign up / Log in" />
-                  </div>
-                  <div className="loading">Loading</div>
-                  <div className="error-message"></div>
-                  <div className="sent-message">Your subscription request has been sent. Thank you!</div>
+                  </div> */}
                 </form>
               </div>
             </div>
