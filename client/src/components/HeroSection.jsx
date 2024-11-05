@@ -17,15 +17,10 @@ function HeroSection() {
           <div className="col-lg-5" data-aos="fade-up" data-aos-delay="300">
             {/* Sign-up form */}
             <form action="forms/newsletter.php" method="post" className="php-email-form">
-              <div className="sign-up-form">
+              {/* <div className="sign-up-form">
                 <input type="email" name="email" />
                 <input type="submit" value="Sign up / Log in" />
-              </div>
-              <div className="loading">Loading</div>
-              <div className="error-message"></div>
-              <div className="sent-message">
-                Your subscription request has been sent. Thank you!
-              </div>
+              </div> */}
             </form>
           </div>
         </div>
