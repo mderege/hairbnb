@@ -10,7 +10,7 @@ export default function Record() {
     preferredService: "",
     hairType: "",
     phoneNumber: "",
-    stylistHairstylesOffered: "",
+    stylistHairstylesOffered: [],
     stylistCertification: "",
     yearsExperience: "",
     stylistAvailabilities: [],
@@ -19,6 +19,11 @@ export default function Record() {
   const [selectedSlot, setSelectedSlot] = useState("");
   const params = useParams();
   const navigate = useNavigate();
+  const [hairstyleInput, setHairstyleInput] = useState({
+    name: "",
+    time: "",
+    price: "",
+  });
 
   useEffect(() => {
     async function fetchData() {
@@ -66,6 +71,32 @@ export default function Record() {
     updateForm({ stylistAvailabilities: updatedSlots });
   }
 
+  const handleAddHairstyle = () => {
+    const { name, time, price } = hairstyleInput;
+    if (name && time && price) {
+      const newHairstyle = {
+        name,
+        time: parseInt(time),
+        price: parseFloat(price),
+      };
+      updateForm({
+        stylistHairstylesOffered: [...form.stylistHairstylesOffered, newHairstyle],
+      });
+      setHairstyleInput({ name: "", time: "", price: "" }); // Reset input fields
+    } else {
+      alert("Please fill in all hairstyle fields.");
+    }
+  };
+
+  const handleRemoveHairstyle = (indexToRemove) => {
+    const updatedHairstyles = form.stylistHairstylesOffered.filter(
+      (_, index) => index !== indexToRemove
+    );
+    updateForm({ stylistHairstylesOffered: updatedHairstyles });
+  };
+  
+  
+
 async function onSubmit(e) {
     e.preventDefault();
     if (!form.name || !form.email || !form.level) {
@@ -95,7 +126,7 @@ async function onSubmit(e) {
         preferredService: "", 
         hairType: "", 
         phoneNumber: "", 
-        stylistHairstylesOffered: "",
+        stylistHairstylesOffered: [],
         stylistCertification: "",
         yearsExperience: "",
         stylistAvailabilities: [],
@@ -217,24 +248,6 @@ async function onSubmit(e) {
                 </div>
               <div>
                 <label
-                  htmlFor="stylistHairstylesOffered"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
-                  Hairstyles Offered
-                </label>
-                <input
-                  type="text"
-                  id="stylistHairstylesOffered"
-                  className="w-full border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
-                  placeholder="e.g., fades, cornrows"
-                  value={form.stylistHairstylesOffered}
-                  onChange={(e) =>
-                    updateForm({ stylistHairstylesOffered: e.target.value })
-                  }
-                />
-              </div>
-              <div>
-                <label
                   htmlFor="stylistCertification"
                   className="block text-sm font-medium text-gray-700 mb-1"
                 >
@@ -311,6 +324,70 @@ async function onSubmit(e) {
                   )}
                 </div>
               </div>
+              <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+              Add a Hairstyle
+                </label>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <input
+                    type="text"
+                    placeholder="Style Name"
+                    value={hairstyleInput.name}
+                    onChange={(e) =>
+                      setHairstyleInput({ ...hairstyleInput, name: e.target.value })
+                    }
+                    className="border-gray-300 rounded-md p-1"
+                  />
+                  <input
+                    type="number"
+                    placeholder="Time (mins)"
+                    value={hairstyleInput.time}
+                    onChange={(e) =>
+                      setHairstyleInput({ ...hairstyleInput, time: e.target.value })
+                    }
+                    className="border-gray-300 rounded-md p-1"
+                  />
+                  <input
+                    type="number"
+                    placeholder="Price ($)"
+                    value={hairstyleInput.price}
+                    onChange={(e) =>
+                      setHairstyleInput({ ...hairstyleInput, price: e.target.value })
+                    }
+                    className="border-gray-300 rounded-md p-1"
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={handleAddHairstyle}
+                  className="mt-2 bg-pink-500 text-white py-1 px-4 rounded-md"
+                >
+                  Add Hairstyle
+                </button>
+              </div>
+              <div className="mt-4">
+                <h4 className="text-sm font-medium text-gray-700">Hairstyles Offered:</h4>
+                {form.stylistHairstylesOffered.length === 0 && <p>No hairstyles added.</p>}
+                {form.stylistHairstylesOffered.length > 0 && (
+                  <ul className="mt-2 space-y-1">
+                    {form.stylistHairstylesOffered.map((style, index) => (
+                      <li key={index} className="flex justify-between items-center">
+                        <span>
+                          {style.name} - {style.time} mins - ${style.price}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveHairstyle(index)}
+                          className="text-red-500"
+                        >
+                          Remove
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+
             </div>
           </div>
         )}
