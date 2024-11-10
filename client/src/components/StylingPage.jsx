@@ -92,27 +92,41 @@ const StylistPage = () => {
 
   return (
     <div className="max-w-6xl mx-auto p-6">
-      <h1 className="text-center text-4xl font-bold text-gray-800 mb-10">
-        Welcome to {stylist.name}'s Page
-      </h1>
+      <header className="relative h-32 bg-gradient-to-r rounded-lg mb-6 from-pink-500 to-red-500 flex items-center justify-center shadow-xl">
+        <h1 className="text-center text-5xl font-bold text-white">
+          {stylist.name}'s Page
+        </h1>
+      </header>
 
       {/* Stylist Profile Section */}
-      <section className="mb-12 bg-white border-2 border-gray-100 rounded-lg shadow-lg p-6">
-        <h2 className="text-2xl font-bold mb-6 text-gray-800">{stylist.name}'s Profile</h2>
-        <p>{stylist.personalStatement}</p>
-        <div className="mt-4 space-y-1">
-          <p><strong>Experience:</strong> {stylist.yearsExperience || 'N/A'} years</p>
-          {/* <p><strong>Hairstyles Offered:</strong> {stylist.stylistHairstylesOffered || 'N/A'}</p> */}
-          <p><strong>Certifications:</strong> {stylist.stylistCertification || 'N/A'}</p>
-          <p><strong>Email:</strong> {stylist.email || 'N/A'}</p>
-        </div>
-      </section>
+      <section className="mb-8 bg-white border-2 border-gray-100 rounded-lg shadow-xl p-8">
+          <div className="flex flex-col md:flex-row md: items-center items-center md:justify-center">
+            {/* Profile Image */}
+            <div className="w-32 h-32 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-white shadow-md bg-gray-200 flex-shrink-0">
+              <img
+                src="https://via.placeholder.com/150" // Replace with stylist's image if available
+                alt={stylist.name}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            {/* Profile Details */}
+            <div className="md:ml-8 mt-6 md:mt-0 text-center md:text-left max-w-md">
+              <h2 className="text-3xl font-bold mb-4 text-gray-800">{stylist.name}</h2>
+              <p className="text-gray-600">{stylist.personalStatement}</p>
+              <div className="mt-4 space-y-2">
+                <p><strong>Experience:</strong> {stylist.yearsExperience || 'N/A'} years</p>
+                <p><strong>Certifications:</strong> {stylist.stylistCertification || 'N/A'}</p>
+                <p><strong>Email:</strong> {stylist.email || 'N/A'}</p>
+              </div>
+            </div>
+          </div>
+        </section>
 
       {/* Stylist Portfolio Section */}
-      <section className="mb-0">
-        <h2 className="text-3xl font-semibold text-gray-700 mb-6">Recent Styles</h2>
+      <section className="border-none mb-0 pb-4 pt-4">
+        <h2 className="text-3xl font-semibold text-gray-700 mb-6">Hairstyles Offered</h2>
           {Array.isArray(stylist.stylistHairstylesOffered) && stylist.stylistHairstylesOffered.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
             {stylist.stylistHairstylesOffered.map((style, index) => (
           <div key={index} className="bg-white shadow-md rounded-lg overflow-hidden">
             <img
@@ -121,11 +135,11 @@ const StylistPage = () => {
               alt={style.name}
               className="w-full h-60 object-cover"
             />
-            <div className="p-4">
-              <p className="text-gray-800 font-medium">{style.name}</p>
-              <p className="text-gray-600">Time: {style.time} mins</p>
-              <p className="text-gray-600">Price: ${style.price}</p>
-            </div>
+             <div className="p-6">
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">{style.name}</h3>
+                <p className="text-gray-600">Time: {style.time} mins</p>
+                <p className="text-gray-600">Price: ${style.price}</p>
+              </div>
           </div>
         ))}
         </div>
@@ -135,11 +149,11 @@ const StylistPage = () => {
       </section>
 
       {/* Customer Reviews Section */}
-      <section className="mb-0">
-        <h2 className="text-3xl font-semibold text-gray-700 mb-6">Customer Reviews</h2>
+      <section className="mb-6 pt-4 pb-4">
+        <h2 className="text-4xl font-semibold text-gray-700 mb-8">Customer Reviews</h2>
         <div className="space-y-6">
           {reviews.map((review) => (
-            <div key={review.id} className="bg-gray-100 p-6 rounded-lg shadow-md">
+            <div key={review.id} className="bg-white border-1 border-black p-4 rounded-lg shadow-md">
               <p className="text-lg font-semibold text-gray-800">{review.name}</p>
               <p className="text-yellow-500 mb-2">
                 {`Rating: ${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}`}
@@ -151,8 +165,9 @@ const StylistPage = () => {
       </section>
           
       {/* Booking Times Section */}
-      <section className="mb-0">
-        <h2 className="text-3xl font-semibold text-gray-700 mb-6">Available Booking Times</h2>
+
+      {/* <section className="mb-0 pt-4">
+        <h2 className="text-4xl font-semibold text-gray-800 mb-6 text-center">Available Booking Times</h2>
         {bookings.length > 0 ? (
           <div className="flex flex-col md:flex-row gap-4">
             {bookings.map((booking) => (
@@ -173,11 +188,50 @@ const StylistPage = () => {
         )}
         <button
           onClick={handleBooking}
-          className="mt-6 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-200"
+          className="mt-6 px-6 py-3 bg-pink-500 text-white font-semibold rounded-lg shadow-md hover:bg-pink-600 transition-colors duration-200"
         >
           Book Now
         </button>
-      </section>
+      </section> */}
+
+      <section className="mb-12">
+          <h2 className="text-4xl font-semibold text-gray-800 mb-8 text-center">Book an Appointment</h2>
+          {bookings.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+              {bookings.map((booking) => (
+                <label key={booking.id} className="flex items-center gap-2 border-2 bg-white p-4 rounded-lg shadow-md hover:bg-gray-100 transition-colors duration-200 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="bookingTime"
+                    value={booking.time}
+                    className="form-radio h-5 w-5 text-pink-500"
+                    onChange={(e) => setSelectedTime(e.target.value)}
+                  />
+                  <span className="text-gray-800">{booking.time}</span>
+                </label>
+              ))}
+            </div>
+          ) : (
+            <p className="mb-8 text-gray-500 text-center">No available booking times.</p>
+          )}
+          {/* <div className="flex flex-col md:flex-row items-center justify-center mt-6 gap-4">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="p-3 border border-gray-300 rounded-md w-full md:w-1/3 focus:outline-none focus:ring-2 focus:ring-pink-500"
+            /> */}
+            <button
+              onClick={handleBooking}
+              className="px-8 py-3 bg-pink-500 text-white font-semibold rounded-md shadow-md hover:bg-pink-600 transition-colors duration-200"
+            >
+              Book Now
+            </button>
+          {/* </div> */}
+        </section>
+
+
     </div>
   );
 };
