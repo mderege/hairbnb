@@ -242,10 +242,10 @@ async function onSubmit(e) {
                   rows={4}
                   maxLength={200} // Limit to 200 characters
                 />
-              </div>
-              <div className="text-sm text-gray-500">
+                <div className="text-sm text-gray-500">
                   {form.personalStatement.length}/200 characters
                 </div>
+              </div>
               <div>
                 <label
                   htmlFor="stylistCertification"
@@ -297,11 +297,54 @@ async function onSubmit(e) {
                 <button
                   type="button"
                   onClick={handleAddSlot}
-                  className="mt-2 bg-pink-500 text-white py-1 px-4 rounded-md"
+                  className="mt-4 bg-pink-500 text-white py-1 px-4 rounded-md"
                   >
                   Add Slot
                 </button>
-                <div className="mt-4">
+              </div>
+              <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+              Add a Hairstyle
+                </label>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <input
+                    type="text"
+                    placeholder="Style Name"
+                    value={hairstyleInput.name}
+                    onChange={(e) =>
+                      setHairstyleInput({ ...hairstyleInput, name: e.target.value })
+                    }
+                    className="w-full border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                  />
+                  <input
+                    type="number"
+                    placeholder="Time (mins)"
+                    value={hairstyleInput.time}
+                    onChange={(e) =>
+                      setHairstyleInput({ ...hairstyleInput, time: e.target.value })
+                    }
+                    className="w-full border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                  />
+                  <input
+                    type="number"
+                    placeholder="Price ($)"
+                    value={hairstyleInput.price}
+                    onChange={(e) =>
+                      setHairstyleInput({ ...hairstyleInput, price: e.target.value })
+                    }
+                    className="w-full border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={handleAddHairstyle}
+                  className="mt-4 bg-pink-500 text-white py-1 px-4 rounded-md"
+                >
+                  Add Hairstyle
+                </button>
+              </div>
+              <div>
+              <div className="mt-4">
                 <h4 className="text-sm font-medium text-gray-700">Selected Slots:</h4>
                   {form.stylistAvailabilities.length === 0 && (
                     <p>No slots added </p>
@@ -323,47 +366,6 @@ async function onSubmit(e) {
                     </ul>
                   )}
                 </div>
-              </div>
-              <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-              Add a Hairstyle
-                </label>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <input
-                    type="text"
-                    placeholder="Style Name"
-                    value={hairstyleInput.name}
-                    onChange={(e) =>
-                      setHairstyleInput({ ...hairstyleInput, name: e.target.value })
-                    }
-                    className="border-gray-300 rounded-md p-1"
-                  />
-                  <input
-                    type="number"
-                    placeholder="Time (mins)"
-                    value={hairstyleInput.time}
-                    onChange={(e) =>
-                      setHairstyleInput({ ...hairstyleInput, time: e.target.value })
-                    }
-                    className="border-gray-300 rounded-md p-1"
-                  />
-                  <input
-                    type="number"
-                    placeholder="Price ($)"
-                    value={hairstyleInput.price}
-                    onChange={(e) =>
-                      setHairstyleInput({ ...hairstyleInput, price: e.target.value })
-                    }
-                    className="border-gray-300 rounded-md p-1"
-                  />
-                </div>
-                <button
-                  type="button"
-                  onClick={handleAddHairstyle}
-                  className="mt-2 bg-pink-500 text-white py-1 px-4 rounded-md"
-                >
-                  Add Hairstyle
-                </button>
               </div>
               <div className="mt-4">
                 <h4 className="text-sm font-medium text-gray-700">Hairstyles Offered:</h4>
