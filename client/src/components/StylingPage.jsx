@@ -5,7 +5,7 @@ import axios from 'axios';
 const StylistPage = () => {
   const { id } = useParams(); // Get the stylist's ID from the URL
   const [stylist, setStylist] = useState(null);
-  const [posts, setPosts] = useState([]);
+  // const [posts, setPosts] = useState([]); // might no longer be necessary
   const [reviews, setReviews] = useState([]);
   const [bookings, setBookings] = useState([]);
   const [selectedTime, setSelectedTime] = useState(null);
@@ -43,16 +43,16 @@ const StylistPage = () => {
     fetchStylist(); // Fetch stylist details on component mount
 
     // Sample data for posts and reviews (You might want to replace this with a real API call)
-    setPosts([
-      { id: 1, 
-        image: "https://live-essnc.s3.amazonaws.com/uploads/2024/06/sleek-blunt-bob.png", 
-        description: "Classic Bob Cut", 
-        price: 20 },
-      { id: 2, 
-        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLuvLiv6FufJ1hBdu2VWyzrHR48H4rErCJIA&s", 
-        description: "Layered Hair", 
-        price: 30 },
-    ]);
+    // setPosts([
+    //   { id: 1, 
+    //     image: "https://live-essnc.s3.amazonaws.com/uploads/2024/06/sleek-blunt-bob.png", 
+    //     description: "Classic Bob Cut", 
+    //     price: 20 },
+    //   { id: 2, 
+    //     image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLuvLiv6FufJ1hBdu2VWyzrHR48H4rErCJIA&s", 
+    //     description: "Layered Hair", 
+    //     price: 30 },
+    // ]);
 
     setReviews([
       { id: 1, name: "Jane Doe", rating: 5, comment: "Amazing experience!" },
@@ -102,34 +102,40 @@ const StylistPage = () => {
         <p>{stylist.personalStatement}</p>
         <div className="mt-4 space-y-1">
           <p><strong>Experience:</strong> {stylist.yearsExperience || 'N/A'} years</p>
-          <p><strong>Hairstyles Offered:</strong> {stylist.stylistHairstylesOffered || 'N/A'}</p>
+          {/* <p><strong>Hairstyles Offered:</strong> {stylist.stylistHairstylesOffered || 'N/A'}</p> */}
           <p><strong>Certifications:</strong> {stylist.stylistCertification || 'N/A'}</p>
+          <p><strong>Email:</strong> {stylist.email || 'N/A'}</p>
         </div>
       </section>
 
       {/* Stylist Portfolio Section */}
-      <section className="mb-12">
+      <section className="mb-0">
         <h2 className="text-3xl font-semibold text-gray-700 mb-6">Recent Styles</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-          {posts.map((post) => (
-            <div key={post.id} className="bg-white shadow-md rounded-lg overflow-hidden">
-              <img
-                src={post.image}
-                alt={post.description}
-                className="w-full h-60 object-cover"
-              />
-              <div className="p-4">
-                <p className="text-gray-600">{post.description}</p>
-                <p className="text-gray-600">${post.price}</p>
-                {/* <p className="text-gray-600">${post.time}</p> */}
-              </div>
+          {Array.isArray(stylist.stylistHairstylesOffered) && stylist.stylistHairstylesOffered.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+            {stylist.stylistHairstylesOffered.map((style, index) => (
+          <div key={index} className="bg-white shadow-md rounded-lg overflow-hidden">
+            <img
+              // src="https://via.placeholder.com/150" // Replace with actual image if available
+              src="https://live-essnc.s3.amazonaws.com/uploads/2024/06/sleek-blunt-bob.png" // Replace with actual image if available
+              alt={style.name}
+              className="w-full h-60 object-cover"
+            />
+            <div className="p-4">
+              <p className="text-gray-800 font-medium">{style.name}</p>
+              <p className="text-gray-600">Time: {style.time} mins</p>
+              <p className="text-gray-600">Price: ${style.price}</p>
             </div>
-          ))}
+          </div>
+        ))}
         </div>
+      ) : (
+        <p className="text-gray-600">No hairstyles offered.</p>
+      )}     
       </section>
 
       {/* Customer Reviews Section */}
-      <section className="mb-12">
+      <section className="mb-0">
         <h2 className="text-3xl font-semibold text-gray-700 mb-6">Customer Reviews</h2>
         <div className="space-y-6">
           {reviews.map((review) => (
@@ -143,9 +149,9 @@ const StylistPage = () => {
           ))}
         </div>
       </section>
-
+          
       {/* Booking Times Section */}
-      <section className="mb-12">
+      <section className="mb-0">
         <h2 className="text-3xl font-semibold text-gray-700 mb-6">Available Booking Times</h2>
         {bookings.length > 0 ? (
           <div className="flex flex-col md:flex-row gap-4">

@@ -130,22 +130,22 @@ const SalonCard = ({ record }) => {
       <h3 onClick={handleProfileClick} className="font-semibold text-xl text-gray-800 hover:cursor-pointer">{record.name}</h3>
       <p className="text-sm text-gray-500 mt-1">{record.personalStatement || 'No personal statement provided'}</p>
       <div className="mt-4 space-y-1 text-sm text-gray-600">
-        <div className="flex justify-between">
-          <span>Hairstyles Offered:</span>
-          {/* <span className="font-medium">{record.stylistHairstylesOffered.name || 'N/A'}</span> */}
-          {offeredStyles.length > 0 ? (
-              <ul className="mt-2 space-y-1">
-                {offeredStyles.map((style, index) => (
-                  <li key={index}>{style.name}</li>
-                ))}
-              </ul>
-            ) : (
-              <p>N/A</p>
-            )}
-          </div>
-        <div className="flex justify-between">
+      <div className="flex justify-between">
           <span>Experience:</span>
           <span className="font-medium">{record.yearsExperience ? `${record.yearsExperience} years` : 'N/A'}</span>
+      </div>
+      <div className="flex justify-between">
+        <span>Hairstyles Offered:</span>
+        {/* <span className="font-medium">{record.stylistHairstylesOffered.name || 'N/A'}</span> */}
+        {offeredStyles.length > 0 ? (
+            <ul className="space-y-0">
+              {offeredStyles.map((style, index) => (
+                <li key={index}>{style.name}</li>
+              ))}
+            </ul>
+          ) : (
+            <p>N/A</p>
+          )}
         </div>
       </div>
       {/* Edit and Delete buttons */}
