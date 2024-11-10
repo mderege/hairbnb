@@ -44,8 +44,14 @@ const StylistPage = () => {
 
     // Sample data for posts and reviews (You might want to replace this with a real API call)
     setPosts([
-      { id: 1, image: "https://live-essnc.s3.amazonaws.com/uploads/2024/06/sleek-blunt-bob.png", description: "Classic Bob Cut" },
-      { id: 2, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLuvLiv6FufJ1hBdu2VWyzrHR48H4rErCJIA&s", description: "Layered Hair" },
+      { id: 1, 
+        image: "https://live-essnc.s3.amazonaws.com/uploads/2024/06/sleek-blunt-bob.png", 
+        description: "Classic Bob Cut", 
+        price: 20 },
+      { id: 2, 
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLuvLiv6FufJ1hBdu2VWyzrHR48H4rErCJIA&s", 
+        description: "Layered Hair", 
+        price: 30 },
     ]);
 
     setReviews([
@@ -114,6 +120,8 @@ const StylistPage = () => {
               />
               <div className="p-4">
                 <p className="text-gray-600">{post.description}</p>
+                <p className="text-gray-600">${post.price}</p>
+                {/* <p className="text-gray-600">${post.time}</p> */}
               </div>
             </div>
           ))}
