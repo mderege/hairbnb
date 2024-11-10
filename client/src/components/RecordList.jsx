@@ -9,7 +9,7 @@ export default function RecordList() {
   const [isOpen, setIsOpen] = useState(false);
   const [filters, setFilters] = useState({
     distance: null,
-    stylesOffered: [],
+    styleName: "",
     priceMin: null,
     priceMax: null,
     availability: null,
@@ -29,7 +29,8 @@ export default function RecordList() {
       setRecords(records);
     }
     getRecords();
-  }, [records.length]);
+  // }, [records.length]);
+  }, []);
 
   const toggleFilter = (filter) => {
     setFilters((prevFilters) => ({
@@ -57,33 +58,36 @@ const filteredRecords = records
   .filter((record) =>
     record.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
     record.personalStatement?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    record.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    record.level?.toLowerCase().includes(searchQuery.toLowerCase())
+    record.email?.toLowerCase().includes(searchQuery.toLowerCase())
   )
   .filter((record) => {
-    // if (filters.distance) {
-    //   // Apply your distance filtering logic here
-    // }
-    // if (filters.price) {
-    //   // Apply your price filtering logic here
-    // }
-    // if (filters.reviews) {
-    //   // Apply your reviews filtering logic here
-    // }
-    // if (filters.availability) {
-    //   // Apply your availability filtering logic here
-    // }
-    // if (filters.distance) {
-    //   // Check if the record's distance falls within the selected range
-    // }
-    // Styles offered filter
-    if (filters.styleSearch) {
-      const offeredStyles = record.stylistHairstylesOffered?.toLowerCase() || '';
-      if (!offeredStyles.includes(filters.styleSearch.toLowerCase())) {
+    if (filters.styleName) {
+      const offeredStyles = Array.isArray(record.stylistHairstylesOffered)
+        ? record.stylistHairstylesOffered
+        : [];
+      const matchesStyle = offeredStyles.some((style) =>
+        style.name.toLowerCase().includes(filters.styleName.toLowerCase())
+      );
+      if (!matchesStyle) {
         return false;
       }
     }
     // Price filter
+    if (filters.priceMin !== null || filters.priceMax !== null) {
+      const minPrice = parseFloat(filters.priceMin) || 0;
+      const maxPrice = parseFloat(filters.priceMax) || Infinity;
+      const offeredStyles = Array.isArray(record.stylistHairstylesOffered)
+        ? record.stylistHairstylesOffered
+        : [];
+      const matchesPrice = offeredStyles.some((style) => {
+        const price = parseFloat(style.price);
+        return price >= minPrice && price <= maxPrice;
+      });
+      if (!matchesPrice) {
+        return false;
+      }
+    }
+
     // if (filters.priceMin !== undefined && filters.priceMax !== undefined) {
     //   return record.price >= filters.priceMin && record.price <= filters.priceMax;
     // }
@@ -110,6 +114,12 @@ const SalonCard = ({ record }) => {
     // Redirect to the booking page for the stylist
     navigate(`/stylist/${record._id}/book`);
   };
+
+  const offeredStyles = Array.isArray(record.stylistHairstylesOffered)
+    ? record.stylistHairstylesOffered
+    : [];
+
+  
   return (
   <div className="bg-white-100 p-4 rounded-xl shadow-md flex items-center mb-6 border-2 border-gray-100 hover:bg-gray-100 transition ease-in-out duration-300">
     <div className="w-1/3">
@@ -122,8 +132,17 @@ const SalonCard = ({ record }) => {
       <div className="mt-4 space-y-1 text-sm text-gray-600">
         <div className="flex justify-between">
           <span>Hairstyles Offered:</span>
-          <span className="font-medium">{record.stylistHairstylesOffered || 'N/A'}</span>
-        </div>
+          {/* <span className="font-medium">{record.stylistHairstylesOffered.name || 'N/A'}</span> */}
+          {offeredStyles.length > 0 ? (
+              <ul className="mt-2 space-y-1">
+                {offeredStyles.map((style, index) => (
+                  <li key={index}>{style.name}</li>
+                ))}
+              </ul>
+            ) : (
+              <p>N/A</p>
+            )}
+          </div>
         <div className="flex justify-between">
           <span>Experience:</span>
           <span className="font-medium">{record.yearsExperience ? `${record.yearsExperience} years` : 'N/A'}</span>
@@ -233,8 +252,8 @@ const SalonCard = ({ record }) => {
             <input
               type="text"
               placeholder="e.g., Bob, Braids"
-              value={filters.styleSearch || ''}
-              onChange={(e) => setFilters({ ...filters, styleSearch: e.target.value })}
+              value={filters.styleName || ''}
+              onChange={(e) => setFilters({ ...filters, styleName: e.target.value })}
               className="p-2 border border-gray-300 rounded-lg w-full"
             />
           </div>
@@ -274,7 +293,12 @@ const SalonCard = ({ record }) => {
           {/* Apply/Reset Filters (Optional) */}
           <div className="flex justify-between">
             <button
-              onClick={() => setFilters({ distance: 0, styleSearch: "", priceMin: "", priceMax: "", availability: "" })}
+              onClick={() => setFilters({ 
+                distance: null, 
+                styleName: "", 
+                priceMin: null, 
+                priceMax: null, 
+                availability: null })}
               className="p-2 px-4 bg-gray-300 rounded-lg text-sm hover:bg-gray-400 transition"
             >
               Reset
@@ -283,7 +307,7 @@ const SalonCard = ({ record }) => {
               onClick={toggleDropdown}
               className="p-2 px-4 bg-pink-500 text-white rounded-lg text-sm hover:bg-pink-600 transition"
             >
-              Apply
+              Close
             </button>
           </div>
         </div>
