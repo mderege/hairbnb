@@ -11,7 +11,7 @@ const ProfilePage = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await axios.get('http://localhost:5050/profile');
+        const response = await axios.get('https://hairbnbbe-9f629b6e0127.herokuapp.com/profile');
         console.log("API Response:", response); // Add this to inspect response
         if (response.status === 200) {
           const profileData = response.data;
@@ -40,7 +40,7 @@ const ProfilePage = () => {
 
   const handleCancel = async (appointmentId) => {
     try {
-      await axios.delete(`http://localhost:5050/appointments/${appointmentId}`);
+      await axios.delete(`https://hairbnbbe-9f629b6e0127.herokuapp.com/appointments/${appointmentId}`);
       setAppointments((prevAppointments) => ({
         ...prevAppointments,
         upcoming: prevAppointments.upcoming.filter(

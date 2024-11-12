@@ -19,7 +19,7 @@ export default function RecordList() {
 
   useEffect(() => {
     async function getRecords() {
-      const response = await fetch(`http://localhost:5050/record/`);
+      const response = await fetch(`https://hairbnbbe-9f629b6e0127.herokuapp.com/record/`);
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
         console.error(message);

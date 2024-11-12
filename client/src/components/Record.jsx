@@ -30,7 +30,7 @@ export default function Record() {
       const id = params.id?.toString() || undefined; 
       if(!id) return;
       const response = await fetch(
-        `http://localhost:5050/record/${params.id.toString()}`
+        `https://hairbnb.app/record/${params.id.toString()}`
       );
       if (!response.ok) {
         const message = `An error has occurred: ${response.statusText}`;
@@ -105,7 +105,7 @@ async function onSubmit(e) {
     }
     const person = { ...form };
     try {
-      const response = await fetch(`http://localhost:5050/record${params.id ? "/"+params.id : ""}`, {
+      const response = await fetch(`https://hairbnbbe-9f629b6e0127.herokuapp.com/record${params.id ? "/"+params.id : ""}`, {
         method: `${params.id ? "PATCH" : "POST"}`,
         headers: {
           "Content-Type": "application/json",

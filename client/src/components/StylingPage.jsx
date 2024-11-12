@@ -14,7 +14,7 @@ const StylistPage = () => {
   useEffect(() => {
     const fetchStylist = async () => {
       try {
-        const response = await fetch(`http://localhost:5050/record/${id}`);
+        const response = await fetch(`https://hairbnbbe-9f629b6e0127.herokuapp.com/record/${id}`);
         if (!response.ok) {
           console.error('Failed to fetch stylist data');
           return;
@@ -63,7 +63,7 @@ const StylistPage = () => {
 
   const sendEmail = async () => {
     try {
-      const response = await axios.post("http://localhost:5050/api/sendmail", {
+      const response = await axios.post("https://hairbnbbe-9f629b6e0127.herokuapp.com/api/sendmail", {
         email,
         bookingTime: selectedTime,
         stylistName: stylist.name
