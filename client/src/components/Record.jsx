@@ -7,6 +7,7 @@ export default function Record() {
     personalStatement: "",
     level: "",
     email: "",
+    password: "",
     preferredService: "",
     hairType: "",
     phoneNumber: "",
@@ -99,11 +100,12 @@ export default function Record() {
 
 async function onSubmit(e) {
     e.preventDefault();
-    if (!form.name || !form.email || !form.level) {
+    if (!form.name || !form.email || !form.level || !form.password) {
       alert("Please fill out all required fields.");
       return; // Exit the function if validation fails
     }
     const person = { ...form };
+    console.log("submitting form data:", person)
     try {
       const response = await fetch(`https://hairbnbbe-9f629b6e0127.herokuapp.com/record${params.id ? "/"+params.id : ""}`, {
         method: `${params.id ? "PATCH" : "POST"}`,
@@ -123,6 +125,7 @@ async function onSubmit(e) {
         personalStatement: "", 
         level: "" , 
         email: "", 
+        password: "",
         preferredService: "", 
         hairType: "", 
         phoneNumber: "", 
@@ -183,20 +186,18 @@ async function onSubmit(e) {
             />
           </div>
           <div>
-            <label
-              htmlFor="phoneNumber"
-              className="block text-sm font-medium text-gray-700 mb-1"
-            >
-              Phone Number
+          <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+              Password
             </label>
-            <input
-              type="tel"
-              id="phoneNumber"
-              className="w-full border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
-              placeholder="(555) 555-5555"
-              value={form.phoneNumber}
-              onChange={(e) => updateForm({ phoneNumber: e.target.value })}
-            />
+              <input
+                type="password"
+                id="password"
+                className="w-full border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                placeholder="Create a password"
+                value={form.password}
+                onChange={(e) => updateForm({ password: e.target.value })}
+                required
+              />
           </div>
           <div>
             <label

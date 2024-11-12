@@ -48,7 +48,7 @@ export default function Navbar() {
             to="/create"
             className="bg-pink-500 shadow-md text-white px-4 py-2 rounded-full mr-4 hover:bg-pink-600 transition ease-in duration-100"
           >
-            Get Started
+            Get Started / Log In
           </NavLink>
         </div>
       </nav>
