@@ -1,35 +1,52 @@
-import React, { useEffect, useState } from 'react';
-import GoogleLoginComponent from "../components/GoogleLogin";
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
-import "../login/Login.css"; // Import the CSS file for styling
+// Login.jsx
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import "../login/Login.css"; // Ensure this path is correct
 
 function Login() {
-    const [user, setUser] = useState(null); // Ensure useState is used correctly
-    const navigate = useNavigate(); // Initialize navigate for redirection
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
-    useEffect(() => {
-        if (user) {
-            console.log("User authenticated:", user);
-        } else {
-            console.log("Not quite authenticated lol");
-        }
-    }, [user]);
-
-    const handleLoginSubmit = () => {
-        // Navigate to home immediately upon login submission
-        navigate('/'); // Redirect to home page immediately
+    const handleLoginSubmit = async (e) => {
+        e.preventDefault();
+        // Simulate a successful login with a hardcoded user ID
+        const hardcodedUserId = "67333712c31376a1bd7f3d6a"; // Replace this with an actual user ID after implementing login logic
+        navigate(`/ProfilePage`);    
     };
 
     return (
-            <div className="login-container">
-                <GoogleLoginComponent setUser={setUser} onSubmit={handleLoginSubmit} />
-                {user && (
-                  <div>
-                    <p>Name: {user.name}</p>
-                    <p>Email: {user.email}</p>
-                  </div>
-                )}
-            </div>
+        <div className="login-container">
+            <h2 className="login-title">Login</h2>
+            <form onSubmit={handleLoginSubmit} className="login-form">
+                <div className="form-group">
+                    <label htmlFor="email" className="form-label">Email:</label>
+                    <input
+                        type="email"
+                        id="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                        className="form-input"
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="password" className="form-label">Password:</label>
+                    <input
+                        type="password"
+                        id="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                        className="form-input"
+                    />
+                </div>
+                {/* {error && <p className="error-message">{error}</p>} */}
+                <button type="submit" className="login-button">Login</button>
+            </form>
+        </div>
     );
 }
 
