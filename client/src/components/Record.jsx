@@ -7,10 +7,9 @@ export default function Record() {
     personalStatement: "",
     level: "",
     email: "",
-    password: "",
     preferredService: "",
     hairType: "",
-    phoneNumber: "",
+    password: "",
     stylistHairstylesOffered: [],
     stylistCertification: "",
     yearsExperience: "",
@@ -98,7 +97,7 @@ export default function Record() {
   
   
 
-async function onSubmit(e) {
+  async function onSubmit(e) {
     e.preventDefault();
     if (!form.name || !form.email || !form.level || !form.password) {
       alert("Please fill out all required fields.");
@@ -125,10 +124,9 @@ async function onSubmit(e) {
         personalStatement: "", 
         level: "" , 
         email: "", 
-        password: "",
         preferredService: "", 
         hairType: "", 
-        phoneNumber: "", 
+        password: "", 
         stylistHairstylesOffered: [],
         stylistCertification: "",
         yearsExperience: "",
@@ -186,18 +184,20 @@ async function onSubmit(e) {
             />
           </div>
           <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="passwords"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Password
             </label>
-              <input
-                type="password"
-                id="password"
-                className="w-full border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
-                placeholder="Create a password"
-                value={form.password}
-                onChange={(e) => updateForm({ password: e.target.value })}
-                required
-              />
+            <input
+              type="string"
+              id="password"
+              className="w-full border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              placeholder="Create password"
+              value={form.password}
+              onChange={(e) => updateForm({ password: e.target.value })}
+            />
           </div>
           <div>
             <label
