@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
 import { googleAuth } from "../api";
-import '../login/Login.css'; // Import the CSS file for styling
+import 'client/src/login/Login.css'; // Import the CSS file for styling
 
 const GoogleLoginComponent = ({ setUser, onSubmit }) => {
     const responseGoogle = useCallback(async (authResult) => {

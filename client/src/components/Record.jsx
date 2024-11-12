@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
@@ -27,27 +28,25 @@ export default function Record() {
 
   useEffect(() => {
     async function fetchData() {
-      const id = params.id?.toString() || undefined; 
-      if(!id) return;
-      const response = await fetch(
-        `http://localhost:5050/record/${params.id.toString()}`
-      );
-      if (!response.ok) {
-        const message = `An error has occurred: ${response.statusText}`;
-        console.error(message);
-        return;
+      const id = params.id?.toString();
+      if (!id) return;
+  
+      try {
+        const response = await fetch(`http://localhost:5050/record/${id}`);
+        if (!response.ok) throw new Error(`Fetch error: ${response.statusText}`);
+  
+        const record = await response.json();
+        if (record) {
+          setForm(record);
+        } else {
+          navigate("/");
+        }
+      } catch (error) {
+        console.error("Fetching record failed:", error);
       }
-      const record = await response.json();
-      if (!record) {
-        console.warn(`Record with id ${id} not found`);
-        navigate("/");
-        return;
-      }
-      setForm(record);
     }
     fetchData();
-    return;
-  }, [params.id, navigate]);
+  }, [params.id, navigate]);  
 
   function updateForm(value) {
     return setForm((prev) => {
@@ -97,40 +96,46 @@ export default function Record() {
   
   
 
-async function onSubmit(e) {
+  async function onSubmit(e) {
     e.preventDefault();
+    // Ensure the errorMessage is set and logged if validation fails
     if (!form.name || !form.email || !form.level) {
-      alert("Please fill out all required fields.");
-      return; // Exit the function if validation fails
+      const error = "Please fill out all required fields.";
+      setErrorMessage(error);
+      console.log("Error set:", error);  // Debugging log
+      return;
     }
+
     const person = { ...form };
     try {
-      const response = await fetch(`http://localhost:5050/record${params.id ? "/"+params.id : ""}`, {
+      const response = await fetch(`http://localhost:5050/record${params.id ? "/" + params.id : ""}`, {
         method: `${params.id ? "PATCH" : "POST"}`,
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(person),
       });
-  
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
     } catch (error) {
       console.error('A problem occurred with your fetch operation: ', error);
     } finally {
-      setForm({ name: "", 
-        personalStatement: "", 
-        level: "" , 
-        email: "", 
-        preferredService: "", 
-        hairType: "", 
-        phoneNumber: "", 
+      setForm({
+        name: "",
+        personalStatement: "",
+        level: "",
+        email: "",
+        preferredService: "",
+        hairType: "",
+        phoneNumber: "",
         stylistHairstylesOffered: [],
         stylistCertification: "",
         yearsExperience: "",
         stylistAvailabilities: [],
       });
+      setErrorMessage("");
       navigate("/");
     }
   }
@@ -282,7 +287,7 @@ async function onSubmit(e) {
               </div>
               <div>
                 <label
-                  htmlFor="Stylist Availability"
+                  htmlFor="stylistAvailability"
                   className="block text-sm font-medium text-gray-700 mb-1"
                 >
                   Stylist Availabilities
