@@ -2,14 +2,19 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import Navbar from 'client/src/components/Navbar';
 
 describe('Navbar Component', () => {
-  const renderComponent = () =>
+  const renderComponent = (initialEntries = ['/']) =>
     render(
-      <MemoryRouter>
-        <Navbar />
+      <MemoryRouter initialEntries={initialEntries}>
+        <Routes>
+          <Route path="/" element={<Navbar />} />
+          <Route path="/landing" element={<div>Landing Page</div>} />
+          <Route path="/create" element={<div>Create Page</div>} />
+          <Route path="/ProfilePage" element={<div>Profile Page</div>} />
+        </Routes>
       </MemoryRouter>
     );
 
@@ -37,5 +42,23 @@ describe('Navbar Component', () => {
     const getStartedButton = screen.getByText(/Get Started/i);
     expect(getStartedButton).toBeInTheDocument();
     expect(getStartedButton.closest('a')).toHaveAttribute('href', '/create');
+  });
+
+  test('applies active class to Home link when on /landing', () => {
+    renderComponent(['/landing']);
+    const homeLink = screen.getByText(/Home/i);
+    expect(homeLink).toHaveClass('text-pink-500 font-bold');
+  });
+
+  test('applies active class to Stylists link when on /', () => {
+    renderComponent(['/']);
+    const stylistsLink = screen.getByText(/Stylists/i);
+    expect(stylistsLink).toHaveClass('text-pink-500 font-bold');
+  });
+
+  test('applies default class to non-active links', () => {
+    renderComponent(['/']);
+    const homeLink = screen.getByText(/Home/i);
+    expect(homeLink).toHaveClass('text-gray-600 hover:text-pink-500 font-semibold');
   });
 });

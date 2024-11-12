@@ -18,6 +18,7 @@ export default function Record() {
   });
   // const [isNew, setIsNew] = useState(true);
   const [selectedSlot, setSelectedSlot] = useState("");
+  const [errorMessage, setErrorMessage] = useState(""); 
   const params = useParams();
   const navigate = useNavigate();
   const [hairstyleInput, setHairstyleInput] = useState({
@@ -105,6 +106,8 @@ export default function Record() {
       console.log("Error set:", error);  // Debugging log
       return;
     }
+
+    setErrorMessage(""); // clear if successful
 
     const person = { ...form };
     try {

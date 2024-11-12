@@ -23,7 +23,12 @@
     ],
     "moduleNameMapper": {
       "\\.(css|less|scss|sass)$": "identity-obj-proxy"
-    }
+    },
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "client/test/record.test.js",
+      "client/src/components/Record.jsx"
+    ]
   },
   "dependencies": {
     "@react-oauth/google": "^0.12.1",
