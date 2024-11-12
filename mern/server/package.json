@@ -11,6 +11,9 @@
   "author": "",
   "license": "ISC",
   "description": "",
+  "engines": {
+    "node": "18.x"
+  },
   "dependencies": {
     "all": "^0.0.0",
     "axios": "^1.7.7",
