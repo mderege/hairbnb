@@ -97,14 +97,13 @@ export default function Record() {
   
   
 
-  async function onSubmit(e) {
+async function onSubmit(e) {
     e.preventDefault();
-    if (!form.name || !form.email || !form.level || !form.password) {
+    if (!form.name || !form.email || !form.level) {
       alert("Please fill out all required fields.");
       return; // Exit the function if validation fails
     }
     const person = { ...form };
-    console.log("submitting form data:", person)
     try {
       const response = await fetch(`https://hairbnbbe-9f629b6e0127.herokuapp.com/record${params.id ? "/"+params.id : ""}`, {
         method: `${params.id ? "PATCH" : "POST"}`,
@@ -135,6 +134,10 @@ export default function Record() {
       navigate("/");
     }
   }
+    // New function to navigate to the login page
+    const handleLoginNavigate = () => {
+      navigate("/login");
+    };
 
    return (
     <div className="max-w-4xl mx-auto p-6 bg-white border-2 border-gray-100 rounded-lg shadow-lg mt-2">
@@ -185,7 +188,7 @@ export default function Record() {
           </div>
           <div>
             <label
-              htmlFor="passwords"
+              htmlFor="password"
               className="block text-sm font-medium text-gray-700 mb-1"
             >
               Password
@@ -194,7 +197,7 @@ export default function Record() {
               type="string"
               id="password"
               className="w-full border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
-              placeholder="Create password"
+              placeholder="Create Password"
               value={form.password}
               onChange={(e) => updateForm({ password: e.target.value })}
             />
@@ -462,6 +465,17 @@ export default function Record() {
           </button>
         </div>
       </form>
+
+    {/* Login Button */}
+    <div className="mt-4">
+        <button
+          type="button"
+          onClick={handleLoginNavigate}
+          className="w-full md:w-auto px-6 py-3 bg-blue-500 text-white rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition"
+        >
+          Login
+        </button>
+      </div>
     </div>
   );
 }
