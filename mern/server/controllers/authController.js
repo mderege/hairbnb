@@ -4,13 +4,14 @@ const { promisify } = require('util');
 const oauth2Client = require('../utils/oauth2client');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
-const User = require('../models/userModel');
+const User = require('../models/UserModel'); // Update to match the corrected filename
 
 const signToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_TIMEOUT,
     });
 };
+
 // Create and send Cookie ->
 const createSendToken = (user, statusCode, res) => {
     const token = signToken(user.id);
@@ -20,7 +21,6 @@ const createSendToken = (user, statusCode, res) => {
         expires: new Date(Date.now() + +process.env.JWT_COOKIE_EXPIRES_IN),
         httpOnly: true,
         path: '/',
-        // sameSite: "none",
         secure: false,
     };
     if (process.env.NODE_ENV === 'production') {
@@ -42,6 +42,7 @@ const createSendToken = (user, statusCode, res) => {
         },
     });
 };
+
 /* GET Google Authentication API. */
 exports.googleAuth = catchAsync(async (req, res, next) => {
     const code = req.query.code;

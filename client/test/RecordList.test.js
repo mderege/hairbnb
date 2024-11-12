@@ -128,7 +128,5 @@ describe('RecordList Component', () => {
 
     const profileLink = screen.getByText(/Stylist One/i);
     fireEvent.click(profileLink);
-
-    // Ideally, here you'd check if `navigate` was called with the correct URL
   });
 });
