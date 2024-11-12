@@ -33,9 +33,9 @@ app.post("/api/sendmail", async (req, res) => {
       <p>Your appointment with ${stylistName} has been confirmed for ${bookingTime}.</p>
       <p>We look forward to seeing you then!</p>
     `;
-    const emailSender = process.env.EMAIL_USER;
-    const replySend = process.env.EMAIL_USER;
-    const emailRecipient = email;
+    const emailSender = 'hairbnbco@gmail.com';
+    const replySend = 'uemn ijvl iloi kvfq';
+    const emailRecipient = "mahlet.derege@vanderbilt.edu";
 
     await sendEmail(emailSubject, emailMessage, emailRecipient, emailSender, replySend);
     res.status(200).json({ success: true, message: "Email Sent" });
