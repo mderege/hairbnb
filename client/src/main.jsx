@@ -88,16 +88,6 @@ const router = createBrowserRouter([ // create a router with these routes
       },
     ],
   },
-  // {
-  //   path: "/stylistpage",
-  //   element: <App />,
-  //   children: [
-  //     {
-  //       index: true,
-  //       element: <StylistPage />,
-  //     },
-  //   ],
-  // },
   {
     path: "/stylist/:id",
     element: <App />,
