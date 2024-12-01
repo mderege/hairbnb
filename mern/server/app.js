@@ -20,8 +20,24 @@ app.enable('trust proxy');
 
 console.log('REMOTE: ', process.env.REMOTE);
 
-app.use(cors({ credentials: true, origin: process.env.REMOTE })); // <- CORS configuration, in case if you wanted to implemented authorization
-app.options(process.env.REMOTE, cors());
+const allowedOrigins = [
+    'http://localhost:5173', // Local development
+    'http://localhost:5050', // Local development
+    'https://hairbnbbe-9f629b6e0127.herokuapp.com' // Heroku production app
+];
+
+// Add CORS middleware
+app.use(cors({
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true); // Allow the origin
+        } else {
+            callback(new Error('Not allowed by CORS'), false); // Deny the origin
+        }
+    },
+    credentials: true // Allow cookies/authorization headers
+}));
+// app.options(process.env.REMOTE, cors());
 
 console.log((`ENV = ${process.env.NODE_ENV}`));
 app.use(morgan('dev')); // <- Logs res status code and time taken

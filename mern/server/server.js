@@ -16,13 +16,30 @@ app.use(express.json());
 
 // Connect to MongoDB using environment variable for the connection string
 mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+  // useNewUrlParser: true,
+  // useUnifiedTopology: true,
 })
   .then(() => console.log("Connected to MongoDB"))
   .catch((error) => console.error("MongoDB connection error:", error));
 
 // Define your routes
+// app.get('/api/auth/test', (req, res) => {
+//   res.send('Test route is working!');
+// });
+
+// app.use('/api/auth', (req, res, next) => {
+//   console.log(`Received request: ${req.method} ${req.url}`);
+//   next();
+// }, userRoutes);
+
+app.get('/test', (req, res) => {
+  res.send('Server is up and running!');
+});
+
+app.get('/', (req, res) => {
+  res.send('Welcome to the HairBnB API!');
+});
+
 app.use('/api/auth', userRoutes); // Authentication routes
 app.use("/record", records); // Record routes
 //app.use("/login", login); // Login routes
