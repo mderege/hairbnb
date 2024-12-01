@@ -6,7 +6,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import records from './routes/record.js';
 import sendEmail from './utils/emailNotif.js';
-import authRoutes from './routes/authRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 import login from './routes/login.js'; 
 
 const app = express();
@@ -23,9 +23,9 @@ mongoose.connect(process.env.MONGO_URI, {
   .catch((error) => console.error("MongoDB connection error:", error));
 
 // Define your routes
-app.use('/api/auth', authRoutes); // Authentication routes
+app.use('/api/auth', userRoutes); // Authentication routes
 app.use("/record", records); // Record routes
-app.use("/login", login); // Login routes
+//app.use("/login", login); // Login routes
 
 // Email route
 app.post("/api/sendmail", async (req, res) => {
