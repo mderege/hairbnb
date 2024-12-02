@@ -19,24 +19,28 @@ dotenv.config({ path: './config.env' }); // <- connecting the enviroment variabl
 app.enable('trust proxy');
 
 console.log('REMOTE: ', process.env.REMOTE);
+//app.options('*', cors()); // Preflight support for all routes
+
+app.use(cors()); // Allow all origins temporarily
+
 
 const allowedOrigins = [
-    'http://localhost:5173', // Local development
-    'http://localhost:5050', // Local development
-    'https://hairbnbbe-9f629b6e0127.herokuapp.com' // Heroku production app
-];
-
-// Add CORS middleware
-app.use(cors({
-    origin: (origin, callback) => {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true); // Allow the origin
-        } else {
-            callback(new Error('Not allowed by CORS'), false); // Deny the origin
-        }
-    },
-    credentials: true // Allow cookies/authorization headers
-}));
+	'http://localhost:5173' , // Local development
+	'http://localhost:5050', // Local development
+	'https://hairbnb.vercel.app/',
+	'https://hairbnbbe-9f629b6e0127.herokuapp.com' // Heroku production app
+  ];
+  
+  app.use(cors({
+	origin: (origin, callback) => {
+		if (!origin || allowedOrigins.includes(origin)) {
+			callback(null, origin); // Allow the specific origin
+		} else {
+			callback(new Error('Not allowed by CORS'), false); // Deny the origin
+		}
+	},
+	credentials: true // Enable cookies/authorization headers
+  }));
 // app.options(process.env.REMOTE, cors());
 
 console.log((`ENV = ${process.env.NODE_ENV}`));

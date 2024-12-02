@@ -13,6 +13,8 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+//app.options('*', cors()); // Preflight support for all routes
+
 
 // Connect to MongoDB using environment variable for the connection string
 mongoose.connect(process.env.MONGO_URI, {
@@ -31,6 +33,25 @@ mongoose.connect(process.env.MONGO_URI, {
 //   console.log(`Received request: ${req.method} ${req.url}`);
 //   next();
 // }, userRoutes);
+
+const allowedOrigins = [
+  'http://localhost:5173', // Local development
+  'http://localhost:5050', // Local development
+  'https://hairbnb.vercel.app/',
+  'https://hairbnbbe-9f629b6e0127.herokuapp.com' // Heroku production app
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+          callback(null, origin); // Allow the specific origin
+      } else {
+          callback(new Error('Not allowed by CORS'), false); // Deny the origin
+      }
+  },
+  credentials: true // Enable cookies/authorization headers
+}));
+
 
 app.get('/test', (req, res) => {
   res.send('Server is up and running!');

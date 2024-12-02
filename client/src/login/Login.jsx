@@ -54,6 +54,15 @@ import "../login/Login.css"; // Ensure this path is correct
 import React, { useState } from 'react';
 import axios from 'axios';
 
+fetch('https://hairbnbbe-9f629b6e0127.herokuapp.com/api/auth/login', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ email: 'sim@example.com', password: 'sim1234' }),
+    credentials: 'include' // Send cookies or authorization headers
+});
+
 const Login = ({ setLoggedInUser }) => {
     const [formData, setFormData] = useState({
         email: '',
