@@ -53,14 +53,29 @@ import "../login/Login.css"; // Ensure this path is correct
 // client/src/components/Login.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
-
 fetch('https://hairbnbbe-9f629b6e0127.herokuapp.com/api/auth/login', {
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer your-token-here', // If you are using authorization
+    },
+    credentials: 'include', // Ensure credentials are included
+    body: JSON.stringify({
+      // Your request body here
+    }),
+  })
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error('Error:', error));
+  
+fetch('https://hairbnbbe-9f629b6e0127.herokuapp.com/api/auth/login', {
+    method: 'POST',
+    credentials: 'include',
     headers: {
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({ email: 'sim@example.com', password: 'sim1234' }),
-    credentials: 'include' // Send cookies or authorization headers
+    // Send cookies or authorization headers
 });
 
 const Login = ({ setLoggedInUser }) => {
