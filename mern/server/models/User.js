@@ -55,6 +55,14 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);  // Compare given password with hashed password
 };
 
+// User.js (Schema)
+userSchema.statics.findByEmail = async function (email) {
+    console.log("in findby email in User.js")
+    console.log(email)
+    return await this.findOne({ email });  // Find user by email
+  };
+  
+
 // Find a user by Firebase UID
 userSchema.statics.findByUid = async function (uid) {
   return await this.findOne({ uid });  // Find user by Firebase UID
