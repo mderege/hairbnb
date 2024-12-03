@@ -120,76 +120,293 @@
 // export default ProfilePage;
 
 // ProfilePage.jsx
-import React from 'react';
+// import React from 'react';
 
-const ProfilePage = () => {
-    // Hardcoded data for Simone
-    const user = {
-        id: "67333712c31376a1bd7f3d6a",
-        name: "Simone",
-        personalStatement: "Hello, I'm Simone",
+// const ProfilePage = () => {
+//     // Hardcoded data for Simone
+//     const user = {
+//         id: "67333712c31376a1bd7f3d6a",
+//         name: "Simone",
+//         personalStatement: "Hello, I'm Simone",
+//         level: "Stylist",
+//         email: "sim@gmail.com",
+//         password: "sim123456",
+//         preferredService: "",
+//         hairType: "",
+//         stylistHairstylesOffered: [
+//             { name: "Classic Bob Cut", time: 30, price: 45 },
+//         ],
+//         stylistCertification: "Licensed Color",
+//         yearsExperience: "5 years",
+//         stylistAvailabilities: ["Monday 10:00 AM", "Wednesday 3:00 PM"]
+//     };
+
+//     return (
+//         <div className="max-w-6xl mx-auto p-6">
+//             <header className="relative h-32 bg-gradient-to-r from-pink-500 to-red-500 rounded-lg mb-6 flex items-center justify-center shadow-lg">
+//                 <h1 className="text-5xl font-bold text-white">
+//                     Welcome, {user.name}!
+//                 </h1>
+//             </header>
+
+//             {/* User Profile Section */}
+//             <section className="mb-8 bg-white border-2 border-gray-100 rounded-lg shadow-lg p-8">
+//                 <h2 className="text-3xl font-semibold text-gray-800 mb-4">Profile Information</h2>
+//                 <p><strong>Name:</strong> {user.name}</p>
+//                 <p><strong>Email:</strong> {user.email}</p>
+//                 <p><strong>Level:</strong> {user.level}</p>
+//                 <p><strong>Personal Statement:</strong> {user.personalStatement}</p>
+//                 <p><strong>Certification:</strong> {user.stylistCertification}</p>
+//                 <p><strong>Experience:</strong> {user.yearsExperience}</p>
+//             </section>
+
+//             {/* Services Offered Section */}
+//             <section className="mb-8">
+//                 <h2 className="text-3xl font-semibold text-gray-800 mb-4">Hairstyles Offered</h2>
+//                 {user.stylistHairstylesOffered.length > 0 ? (
+//                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+//                         {user.stylistHairstylesOffered.map((style, index) => (
+//                             <div key={index} className="bg-white p-4 rounded-lg shadow-md">
+//                                 <h3 className="text-xl font-semibold text-gray-800">{style.name}</h3>
+//                                 <p>Time: {style.time} mins</p>
+//                                 <p>Price: ${style.price}</p>
+//                             </div>
+//                         ))}
+//                     </div>
+//                 ) : (
+//                     <p className="text-gray-600">No services listed.</p>
+//                 )}
+//             </section>
+
+//             {/* Availability Section */}
+//             <section className="mb-8">
+//                 <h2 className="text-3xl font-semibold text-gray-800 mb-4">Availability</h2>
+//                 {user.stylistAvailabilities.length > 0 ? (
+//                     <ul className="list-disc list-inside space-y-2">
+//                         {user.stylistAvailabilities.map((time, index) => (
+//                             <li key={index} className="text-gray-600">{time}</li>
+//                         ))}
+//                     </ul>
+//                 ) : (
+//                     <p className="text-gray-600">No available slots listed.</p>
+//                 )}
+//             </section>
+//         </div>
+//     );
+// };
+
+// export default ProfilePage;
+
+
+import React, { useState, useEffect } from 'react';
+
+const ProfilePage = ({ user }) => {
+    // Defaulting to an empty object to prevent undefined errors.
+    const [stylistData, setStylistData] = useState({
+        name: "",
+        email: "",
         level: "Stylist",
-        email: "sim@gmail.com",
-        password: "sim123456",
-        preferredService: "",
-        hairType: "",
-        stylistHairstylesOffered: [
-            { name: "Classic Bob Cut", time: 30, price: 45 },
-        ],
-        stylistCertification: "Licensed Color",
-        yearsExperience: "5 years",
-        stylistAvailabilities: ["Monday 10:00 AM", "Wednesday 3:00 PM"]
+        stylistAvailabilities: [],
+        stylistHairstylesOffered: [],
+        personalStatement: "",
+        stylistCertification: "",
+        yearsExperience: "",
+    });
+
+    const [newSlot, setNewSlot] = useState("");
+    const [newHairstyle, setNewHairstyle] = useState({
+        name: "",
+        time: "",
+        price: "",
+    });
+
+    // Initialize stylistData with the user data (if available)
+    useEffect(() => {
+        if (user) {
+            setStylistData({
+                ...user,  // Assuming `user` contains all required fields.
+                stylistAvailabilities: user.stylistAvailabilities || [],
+                stylistHairstylesOffered: user.stylistHairstylesOffered || [],
+            });
+        }
+    }, [user]);
+
+    const handleAddSlot = () => {
+        if (newSlot.trim()) {
+            setStylistData({
+                ...stylistData,
+                stylistAvailabilities: [...stylistData.stylistAvailabilities, newSlot],
+            });
+            setNewSlot("");
+        }
     };
+
+    const handleRemoveSlot = (slot) => {
+        setStylistData({
+            ...stylistData,
+            stylistAvailabilities: stylistData.stylistAvailabilities.filter(
+                (s) => s !== slot
+            ),
+        });
+    };
+
+    const handleAddHairstyle = () => {
+        if (newHairstyle.name && newHairstyle.time && newHairstyle.price) {
+            const updatedHairstyles = [
+                ...stylistData.stylistHairstylesOffered,
+                newHairstyle,
+            ];
+            setStylistData({
+                ...stylistData,
+                stylistHairstylesOffered: updatedHairstyles,
+            });
+            setNewHairstyle({ name: "", time: "", price: "" });
+        }
+    };
+
+    const handleRemoveHairstyle = (index) => {
+        const updatedHairstyles = stylistData.stylistHairstylesOffered.filter(
+            (_, i) => i !== index
+        );
+        setStylistData({
+            ...stylistData,
+            stylistHairstylesOffered: updatedHairstyles,
+        });
+    };
+
+    const handleEditInfo = (key, value) => {
+        setStylistData({
+            ...stylistData,
+            [key]: value,
+        });
+    };
+
+    if (!stylistData || !stylistData.name) return <p>Loading...</p>; // Check for stylistData loading
 
     return (
         <div className="max-w-6xl mx-auto p-6">
             <header className="relative h-32 bg-gradient-to-r from-pink-500 to-red-500 rounded-lg mb-6 flex items-center justify-center shadow-lg">
                 <h1 className="text-5xl font-bold text-white">
-                    Welcome, {user.name}!
+                    Welcome, {stylistData.name}!
                 </h1>
             </header>
 
-            {/* User Profile Section */}
+            {/* Profile Information Section */}
             <section className="mb-8 bg-white border-2 border-gray-100 rounded-lg shadow-lg p-8">
                 <h2 className="text-3xl font-semibold text-gray-800 mb-4">Profile Information</h2>
-                <p><strong>Name:</strong> {user.name}</p>
-                <p><strong>Email:</strong> {user.email}</p>
-                <p><strong>Level:</strong> {user.level}</p>
-                <p><strong>Personal Statement:</strong> {user.personalStatement}</p>
-                <p><strong>Certification:</strong> {user.stylistCertification}</p>
-                <p><strong>Experience:</strong> {user.yearsExperience}</p>
+                <div>
+                    <p><strong>Name:</strong>
+                        <input
+                            type="text"
+                            value={stylistData.name}
+                            onChange={(e) => handleEditInfo("name", e.target.value)}
+                            className="mt-2 p-2 border border-gray-300 rounded"
+                        />
+                    </p>
+                    <p><strong>Email:</strong> {stylistData.email}</p>
+                    <p><strong>Level:</strong> {stylistData.level}</p>
+                    <p><strong>Personal Statement:</strong>
+                        <textarea
+                            value={stylistData.personalStatement}
+                            onChange={(e) => handleEditInfo("personalStatement", e.target.value)}
+                            className="mt-2 p-2 border border-gray-300 rounded"
+                        />
+                    </p>
+                    <p><strong>Certification:</strong> {stylistData.stylistCertification}</p>
+                    <p><strong>Experience:</strong> {stylistData.yearsExperience}</p>
+                </div>
             </section>
 
             {/* Services Offered Section */}
             <section className="mb-8">
                 <h2 className="text-3xl font-semibold text-gray-800 mb-4">Hairstyles Offered</h2>
-                {user.stylistHairstylesOffered.length > 0 ? (
+                {stylistData.stylistHairstylesOffered.length > 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                        {user.stylistHairstylesOffered.map((style, index) => (
+                        {stylistData.stylistHairstylesOffered.map((style, index) => (
                             <div key={index} className="bg-white p-4 rounded-lg shadow-md">
                                 <h3 className="text-xl font-semibold text-gray-800">{style.name}</h3>
                                 <p>Time: {style.time} mins</p>
                                 <p>Price: ${style.price}</p>
+                                <button
+                                    onClick={() => handleRemoveHairstyle(index)}
+                                    className="mt-2 text-red-500"
+                                >
+                                    Remove
+                                </button>
                             </div>
                         ))}
                     </div>
                 ) : (
                     <p className="text-gray-600">No services listed.</p>
                 )}
+                <div>
+                    <h3>Add New Hairstyle</h3>
+                    <input
+                        type="text"
+                        placeholder="Hairstyle Name"
+                        value={newHairstyle.name}
+                        onChange={(e) => setNewHairstyle({ ...newHairstyle, name: e.target.value })}
+                        className="mt-2 p-2 border border-gray-300 rounded"
+                    />
+                    <input
+                        type="number"
+                        placeholder="Time (mins)"
+                        value={newHairstyle.time}
+                        onChange={(e) => setNewHairstyle({ ...newHairstyle, time: e.target.value })}
+                        className="mt-2 p-2 border border-gray-300 rounded"
+                    />
+                    <input
+                        type="number"
+                        placeholder="Price"
+                        value={newHairstyle.price}
+                        onChange={(e) => setNewHairstyle({ ...newHairstyle, price: e.target.value })}
+                        className="mt-2 p-2 border border-gray-300 rounded"
+                    />
+                    <button
+                        onClick={handleAddHairstyle}
+                        className="mt-2 p-2 bg-green-500 text-white rounded"
+                    >
+                        Add Hairstyle
+                    </button>
+                </div>
             </section>
 
             {/* Availability Section */}
             <section className="mb-8">
                 <h2 className="text-3xl font-semibold text-gray-800 mb-4">Availability</h2>
-                {user.stylistAvailabilities.length > 0 ? (
+                {stylistData.stylistAvailabilities.length > 0 ? (
                     <ul className="list-disc list-inside space-y-2">
-                        {user.stylistAvailabilities.map((time, index) => (
-                            <li key={index} className="text-gray-600">{time}</li>
+                        {stylistData.stylistAvailabilities.map((time, index) => (
+                            <li key={index} className="text-gray-600">
+                                {time}{" "}
+                                <button
+                                    onClick={() => handleRemoveSlot(time)}
+                                    className="text-red-500 ml-2"
+                                >
+                                    Remove
+                                </button>
+                            </li>
                         ))}
                     </ul>
                 ) : (
                     <p className="text-gray-600">No available slots listed.</p>
                 )}
+                <div>
+                    <h3>Add New Availability</h3>
+                    <input
+                        type="text"
+                        placeholder="New Slot"
+                        value={newSlot}
+                        onChange={(e) => setNewSlot(e.target.value)}
+                        className="mt-2 p-2 border border-gray-300 rounded"
+                    />
+                    <button
+                        onClick={handleAddSlot}
+                        className="mt-2 p-2 bg-blue-500 text-white rounded"
+                    >
+                        Add Slot
+                    </button>
+                </div>
             </section>
         </div>
     );
