@@ -771,6 +771,7 @@ section,
   display: flex;
   align-items: center;
   justify-content: center;
+  /* transition: all 3s ease; */
 }
 
 .hero img {
@@ -798,14 +799,18 @@ section,
 
 .hero h2 {
   margin: 0;
-  font-size: 44px;
+  font-size: 56px;
   font-weight: 700;
 }
 
 .hero p {
   color: color-mix(in srgb, var(--default-color), transparent 20%);
   margin: 5px 0 0 0;
-  font-size: 20px;
+  font-size: 24px;
+}
+
+.hero a {
+  font-size: 26px;
 }
 
 .hero .sign-up-form {
@@ -858,9 +863,10 @@ section,
 # About Section
 --------------------------------------------------------------*/
 .about .content h3 {
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 500;
   line-height: 19px;
+  text-align: left !important;
   padding: 10px 20px;
   background: color-mix(in srgb, var(--accent-color), transparent 95%);
   color: var(--accent-color);
@@ -870,6 +876,7 @@ section,
 
 .about .content h2 {
   font-weight: 700;
+  font-size: 24px;
 }
 
 .about .content p:last-child {
@@ -1076,6 +1083,7 @@ section,
 
 .services .service-item .title a {
   color: var(--heading-color);
+  text-align: left;
 }
 
 .services .service-item .title a:hover {
