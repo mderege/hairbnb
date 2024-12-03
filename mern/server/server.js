@@ -16,7 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 // Connect to MongoDB using environment variable for the connection string
-mongoose.connect(process.env.MONGO_URI, {
+mongoose.connect("mongodb+srv://stephaniejting:12167002337@hairbnb.rmuyh.mongodb.net/", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
@@ -25,7 +25,7 @@ mongoose.connect(process.env.MONGO_URI, {
 
 // Define your routes
 app.use('/api/auth', userRoutes); // Authentication routes
-app.use("/records", records); // Record routes
+app.use("/record", records); // Record routes
 app.use("/login", login); // Login routes
 
 
