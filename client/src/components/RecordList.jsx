@@ -323,7 +323,8 @@ const SalonCard = ({ record }) => {
       {/* Map Section */}
       <div className="w-2/3 relative rounded-lg overflow-hidden ml-2 shadow-lg">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d128590.6922695734!2d-86.7844437!3d36.1744653!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8864665c6ec7e091%3A0x7416f4bb708c4034!2sNashville%2C%20TN%2C%20USA!5e0!3m2!1sen!2sus!4v1697980411601" // Replace with your map embed link
+          // src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d128590.6922695734!2d-86.7844437!3d36.1744653!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8864665c6ec7e091%3A0x7416f4bb708c4034!2sNashville%2C%20TN%2C%20USA!5e0!3m2!1sen!2sus!4v1697980411601" // Replace with your map embed link
+          src="https://www.google.com/maps/d/embed?mid=1yTAWoDVH2LbyUX3S8z8pS_rotbbMjiA&ehbc=2E312F&noprof=1"
           width="100%" height="100%" frameBorder="0" style={{ border: 0 }} allowFullScreen="" aria-hidden="false" tabIndex="0">
         </iframe>
       </div>
