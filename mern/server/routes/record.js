@@ -31,6 +31,23 @@ router.get("/:id", async (req, res) => {
   else res.send(result).status(200);
 });
 
+router.get("/email/:email", async (req, res) => {
+  try {
+    let collection = await db.collection("records");
+    let query = { email: req.params.email };  // Query using email field
+    let result = await collection.findOne(query);
+
+    if (!result) {
+      return res.status(404).send("User not found");
+    }
+    res.status(200).send(result);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error fetching user by email");
+  }
+});
+
+
 // This section will help you create a new record.
 router.post("/", async (req, res) => {
   try {
