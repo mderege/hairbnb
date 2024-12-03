@@ -1,7 +1,6 @@
 {
   "scripts": {
     "dev": "vite",
-    "build": "echo 'Skipping build step'",
     "start": "node mern/server/server.js",
     "preview": "vite preview"
   },
