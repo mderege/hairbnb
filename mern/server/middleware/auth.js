@@ -1,5 +1,6 @@
 // middleware/auth.js
 import jwt from 'jsonwebtoken';
+import config from '../config.js';
 
 const auth = (req, res, next) => {
   // Get token from the request header
@@ -12,7 +13,7 @@ const auth = (req, res, next) => {
 
   try {
     // Verify token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, config.jwtSecret);
 
     // Add user from payload to request object
     req.user = decoded;
