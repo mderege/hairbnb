@@ -155,9 +155,9 @@ function LandingPage() {
           <div className="container" data-aos="fade-up" data-aos-delay="0">
             <div className="row align-items-xl-center gy-5">
               <div className="col-xl-5 content">
-                <h3 className="mb-3">About Us</h3>
-                <h2 className="mb-2 text-lg">We're like Airbnb, but for hairdressers, hair stylists, and barbers.</h2>
-                <p className="mb-3">
+                <h3 className="mb-4">About Us</h3>
+                <h2 className="mb-4 text-lg">We're like Airbnb, but for hairdressers, hair stylists, and barbers.</h2>
+                <p className="mb-4">
                   You deserve the haircut or style you want. Our platform lets you browse through, search,
                   filter, and look at the work of stylists in your area, helping you understand which will
                   be the best fit for you. Oh - and you can see availability and book appointments directly

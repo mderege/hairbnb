@@ -41,26 +41,64 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
-      <h1>Welcome Back!</h1>
-      <form onSubmit={handleLogin}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button type="submit" className="google-login-button">Login</button>
-      </form>
-      {error && <p>{error}</p>}
+    <div className="login-container max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg">
+        <h1 className="text-2xl font-bold text-center mb-6">Welcome Back!</h1>
+        <form onSubmit={handleLogin} className="space-y-4">
+            {/* Email Input */}
+            <div>
+                <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-700"
+                >
+                    Email
+                </label>
+                <input
+                    id="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="mt-1 w-full p-2 border border-gray-300 rounded focus:ring-pink-500 focus:border-pink-500"
+                    placeholder="Enter your email"
+                />
+            </div>
+
+            {/* Password Input */}
+            <div>
+                <label
+                    htmlFor="password"
+                    className="block text-sm font-medium text-gray-700"
+                >
+                    Password
+                </label>
+                <input
+                    id="password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="mt-1 w-full p-2 border border-gray-300 rounded focus:ring-pink-500 focus:border-pink-500"
+                    placeholder="Enter your password"
+                />
+            </div>
+
+            {/* Submit Button */}
+            <div>
+                <button
+                    type="submit"
+                    className="w-full bg-pink-500 hover:bg-pink-600 text-white font-medium py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-pink-500"
+                >
+                    Login
+                </button>
+            </div>
+        </form>
+
+        {/* Error Message */}
+        {error && (
+            <p className="mt-4 text-sm text-red-500 text-center">
+                {error}
+            </p>
+        )}
     </div>
   );
 };
