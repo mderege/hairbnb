@@ -2,7 +2,7 @@
   "scripts": {
     "dev": "vite",
     "build": "echo 'Skipping build step'",
-    "start": "node server.js",
+    "start": "node mern/server/server.js",
     "preview": "vite preview"
   },
   "dependencies": {
