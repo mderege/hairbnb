@@ -9,7 +9,7 @@ export default function Record() {
     email: "",
     preferredService: "",
     hairType: "",
-    phoneNumber: "",
+    password: "",
     stylistHairstylesOffered: [],
     stylistCertification: "",
     yearsExperience: "",
@@ -30,7 +30,7 @@ export default function Record() {
       const id = params.id?.toString() || undefined; 
       if(!id) return;
       const response = await fetch(
-        `http://localhost:5050/record/${params.id.toString()}`
+        `https://hairbnb.app/record/${params.id.toString()}`
       );
       if (!response.ok) {
         const message = `An error has occurred: ${response.statusText}`;
@@ -105,7 +105,7 @@ async function onSubmit(e) {
     }
     const person = { ...form };
     try {
-      const response = await fetch(`http://localhost:5050/record${params.id ? "/"+params.id : ""}`, {
+      const response = await fetch(`https://hairbnbbe-9f629b6e0127.herokuapp.com/record${params.id ? "/"+params.id : ""}`, {
         method: `${params.id ? "PATCH" : "POST"}`,
         headers: {
           "Content-Type": "application/json",
@@ -125,7 +125,7 @@ async function onSubmit(e) {
         email: "", 
         preferredService: "", 
         hairType: "", 
-        phoneNumber: "", 
+        password: "", 
         stylistHairstylesOffered: [],
         stylistCertification: "",
         yearsExperience: "",
@@ -134,6 +134,10 @@ async function onSubmit(e) {
       navigate("/");
     }
   }
+    // New function to navigate to the login page
+    const handleLoginNavigate = () => {
+      navigate("/login");
+    };
 
    return (
     <div className="max-w-4xl mx-auto p-6 bg-white border-2 border-gray-100 rounded-lg shadow-lg mt-2">
@@ -184,18 +188,18 @@ async function onSubmit(e) {
           </div>
           <div>
             <label
-              htmlFor="phoneNumber"
+              htmlFor="password"
               className="block text-sm font-medium text-gray-700 mb-1"
             >
-              Phone Number
+              Password
             </label>
             <input
-              type="tel"
-              id="phoneNumber"
+              type="string"
+              id="password"
               className="w-full border-gray-300 rounded-md shadow-sm p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
-              placeholder="(555) 555-5555"
-              value={form.phoneNumber}
-              onChange={(e) => updateForm({ phoneNumber: e.target.value })}
+              placeholder="Create Password"
+              value={form.password}
+              onChange={(e) => updateForm({ password: e.target.value })}
             />
           </div>
           <div>
@@ -461,6 +465,17 @@ async function onSubmit(e) {
           </button>
         </div>
       </form>
+
+    {/* Login Button */}
+    <div className="mt-4">
+        <button
+          type="button"
+          onClick={handleLoginNavigate}
+          className="w-full md:w-auto px-6 py-3 bg-blue-500 text-white rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition"
+        >
+          Login
+        </button>
+      </div>
     </div>
   );
 }

@@ -39,9 +39,9 @@ router.post("/", async (req, res) => {
       personalStatement: req.body.personalStatement,
       level: req.body.level,
       email: req.body.email,
+      password: req.body.password,
       preferredService: req.body.preferredService,
       hairType: req.body.hairType,
-      phoneNumber: req.body.phoneNumber,
       stylistHairstylesOffered: req.body.stylistHairstylesOffered,
       stylistCertification: req.body.stylistCertification,
       yearsExperience: req.body.yearsExperience,
@@ -66,14 +66,13 @@ router.patch("/:id", async (req, res) => {
         personalStatement: req.body.personalStatement,
         level: req.body.level,
         email: req.body.email,
+        password: req.body.password,
         preferredService: req.body.preferredService,
         hairType: req.body.hairType,
-        phoneNumber: req.body.phoneNumber,
         stylistHairstylesOffered: req.body.stylistHairstylesOffered,
         stylistCertification: req.body.stylistCertification,
         yearsExperience: req.body.yearsExperience,
         stylistAvailabilities: req.body.stylistAvailabilities,
-        
       },
     };
 

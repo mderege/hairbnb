@@ -1,63 +1,39 @@
-// const express = require('express');
-// const authController = require('../controllers/authController');
-
-// const Router = express.Router();
-
-
-// Router.get("/google", authController.googleAuth);
-
-// routes/authRoutes.js// routes/authRoutes.js
 import express from 'express';
 import User from '../models/User.js';
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
 
-const router = express.Router();
+const router = express.Router(); // Initialize the router
 
-// Register route
+// routes/authRoutes.js
 router.post('/register', async (req, res) => {
-  try {
-    const { email, password } = req.body;
+  const { email, password } = req.body;
 
-    // Check if the user already exists
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
+  console.log("received data:", req.body);
+  try {
+    // Check if user exists
+    let user = await User.findOne({ email });
+    if (user) {
       return res.status(400).json({ message: 'User already exists' });
     }
 
-    // Create a new user
-    const user = new User({ email, password });
+    // Create new user
+    user = new User({ name, email, password, level });
     await user.save();
 
-    res.status(201).json({ message: 'User created successfully' });
-  } catch (error) {
-    res.status(500).json({ message: 'Error registering user' });
-  }
-});
 
-// Login route
-router.post('/login', async (req, res) => {
-  try {
-    const { email, password } = req.body;
-
-    // Find the user by email
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(400).json({ message: 'Invalid email or password' });
-    }
-
-    // Compare the provided password with the stored password
+    // Verify password
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
-      return res.status(400).json({ message: 'Invalid email or password' });
+      return res.status(400).json({ message: 'Invalid credentials' });
     }
 
-    // Create a JWT token
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    res.json({ token });
-  } catch (error) {
-    res.status(500).json({ message: 'Error logging in' });
+    // Generate JWT
+    const payload = { userId: user._id };
+    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+    res.status(201).json({ message: 'User registered successfully' });  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ message: 'Server error' });
   }
 });
 
-export default router;
+export default router; 
