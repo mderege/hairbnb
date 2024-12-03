@@ -6,7 +6,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import records from './routes/record.js';
 import sendEmail from './utils/emailNotif.js';
-import authRoutes from './routes/authRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 import login from './routes/login.js'; 
 import User from './models/User.js';
 

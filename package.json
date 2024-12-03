@@ -1,7 +1,8 @@
 {
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "echo 'Skipping build step'",
+    "start": "node server.js",
     "preview": "vite preview"
   },
   "dependencies": {

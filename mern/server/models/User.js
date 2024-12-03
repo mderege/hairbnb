@@ -70,4 +70,5 @@ userSchema.statics.findByUid = async function (uid) {
 
 // Create and export the User model
 const User = mongoose.model('User', userSchema);
+
 export default User;
