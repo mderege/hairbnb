@@ -8,6 +8,7 @@ import records from './routes/record.js';
 import sendEmail from './utils/emailNotif.js';
 import authRoutes from './routes/authRoutes.js';
 import login from './routes/login.js'; 
+import User from './models/User.js';
 
 const app = express();
 
@@ -24,8 +25,24 @@ mongoose.connect(process.env.MONGO_URI, {
 
 // Define your routes
 app.use('/api/auth', authRoutes); // Authentication routes
-app.use("/record", records); // Record routes
+app.use("/records", records); // Record routes
 app.use("/login", login); // Login routes
+
+
+app.get("/users/:uid", async (req, res) => {
+  try {
+    const user = await User.findByUid(req.params.uid);  // Fetch the user profile using their Firebase UID
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });  // If no user is found, return a 404
+    }
+    res.json(user);  // Return the user data from MongoDB
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });  // Handle server errors
+  }
+});
+
+
 
 // Email route
 app.post("/api/sendmail", async (req, res) => {
