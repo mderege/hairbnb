@@ -1,10 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { useOutletContext } from "react-router-dom";
-import { UserContext } from './UserContext';
+import React, { useState, useEffect, useContext } from "react";
+import { UserContext } from "./UserContext";
 
 const ProfilePage = () => {
-    // Defaulting to an empty object to prevent undefined errors.
-    const { user } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
     const [stylistData, setStylistData] = useState({
         name: "",
         email: "",
@@ -23,16 +21,23 @@ const ProfilePage = () => {
         price: "",
     });
 
-    // Initialize stylistData with the user data (if available)
+    const [isDirty, setIsDirty] = useState(false); // Track unsaved changes
+
+    // Initialize stylistData with user data on mount
     useEffect(() => {
         if (user) {
             setStylistData({
-                ...user,  // Assuming `user` contains all required fields.
+                ...user,
                 stylistAvailabilities: user.stylistAvailabilities || [],
                 stylistHairstylesOffered: user.stylistHairstylesOffered || [],
             });
         }
     }, [user]);
+
+    const handleFieldChange = (key, value) => {
+        setStylistData({ ...stylistData, [key]: value });
+        setIsDirty(true); // Mark as unsaved
+    };
 
     const handleAddSlot = () => {
         if (newSlot.trim()) {
@@ -41,6 +46,7 @@ const ProfilePage = () => {
                 stylistAvailabilities: [...stylistData.stylistAvailabilities, newSlot],
             });
             setNewSlot("");
+            setIsDirty(true); // Mark as unsaved
         }
     };
 
@@ -51,40 +57,59 @@ const ProfilePage = () => {
                 (s) => s !== slot
             ),
         });
+        setIsDirty(true); // Mark as unsaved
     };
 
     const handleAddHairstyle = () => {
         if (newHairstyle.name && newHairstyle.time && newHairstyle.price) {
-            const updatedHairstyles = [
-                ...stylistData.stylistHairstylesOffered,
-                newHairstyle,
-            ];
             setStylistData({
                 ...stylistData,
-                stylistHairstylesOffered: updatedHairstyles,
+                stylistHairstylesOffered: [
+                    ...stylistData.stylistHairstylesOffered,
+                    newHairstyle,
+                ],
             });
             setNewHairstyle({ name: "", time: "", price: "" });
+            setIsDirty(true); // Mark as unsaved
         }
     };
 
     const handleRemoveHairstyle = (index) => {
-        const updatedHairstyles = stylistData.stylistHairstylesOffered.filter(
-            (_, i) => i !== index
-        );
         setStylistData({
             ...stylistData,
-            stylistHairstylesOffered: updatedHairstyles,
+            stylistHairstylesOffered: stylistData.stylistHairstylesOffered.filter(
+                (_, i) => i !== index
+            ),
         });
+        setIsDirty(true); // Mark as unsaved
     };
 
-    const handleEditInfo = (key, value) => {
-        setStylistData({
-            ...stylistData,
-            [key]: value,
-        });
+    const saveData = async () => {
+        try {
+            const response = await fetch("/api/stylist", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(stylistData),
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to save data");
+            }
+
+            const savedData = await response.json();
+            setStylistData(savedData); // Update local state
+            setUser(savedData); // Update global context
+            setIsDirty(false); // Reset dirty flag
+            alert("Changes saved successfully!");
+        } catch (error) {
+            console.error("Error saving data:", error);
+            alert("Failed to save changes. Please try again.");
+        }
     };
 
-    if (!stylistData || !stylistData.name) return <p>Loading...</p>; // Check for stylistData loading
+    if (!stylistData || !stylistData.name) return <p>Loading...</p>;
 
     return (
         <div className="max-w-6xl mx-auto p-6">
@@ -108,7 +133,7 @@ const ProfilePage = () => {
                         <input
                             type="text"
                             value={stylistData.name}
-                            onChange={(e) => handleEditInfo("name", e.target.value)}
+                            onChange={(e) => handleFieldChange("name", e.target.value)}
                             className="w-full mt-1 p-2 border border-gray-300 rounded focus:ring-pink-500 focus:border-pink-500"
                         />
                     </div>
@@ -126,7 +151,9 @@ const ProfilePage = () => {
                         </label>
                         <textarea
                             value={stylistData.personalStatement}
-                            onChange={(e) => handleEditInfo("personalStatement", e.target.value)}
+                            onChange={(e) =>
+                                handleFieldChange("personalStatement", e.target.value)
+                            }
                             className="w-full mt-1 p-2 border border-gray-300 rounded focus:ring-pink-500 focus:border-pink-500"
                             rows="4"
                         />
@@ -244,6 +271,21 @@ const ProfilePage = () => {
                     </button>
                 </div>
             </section>
+
+            {/* Save Button */}
+            <div className="flex justify-end mb-8">
+                <button
+                    onClick={saveData}
+                    disabled={!isDirty} // Disable button if no changes
+                    className={`p-2 text-white rounded ${
+                        isDirty
+                            ? "bg-blue-500 hover:bg-blue-600"
+                            : "bg-gray-300 cursor-not-allowed"
+                    }`}
+                >
+                    Save Changes
+                </button>
+            </div>
         </div>
     );
 };

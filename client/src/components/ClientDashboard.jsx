@@ -91,6 +91,37 @@ const ClientDashboard = () => {
                             placeholder="Describe your preferred services"
                         />
                     </div>
+                    <div>
+                        <label
+                            htmlFor="hairType"
+                            className="block text-sm font-medium text-gray-600"
+                        >
+                            Hair Type
+                        </label>
+                        <select
+                            id="hairType"
+                            value={clientData.hairType || ""}
+                            onChange={(e) => handleEditInfo("hairType", e.target.value)}
+                            className="mt-1 w-full p-2 border border-gray-300 rounded focus:ring-pink-500 focus:border-pink-500"
+                        >
+                            <option value="" disabled>
+                                Select your hair type
+                            </option>
+                            <option value="1A">1A</option>
+                            <option value="1B">1B</option>
+                            <option value="1C">1C</option>
+                            <option value="2A">2A</option>
+                            <option value="2B">2B</option>
+                            <option value="2C">2C</option>
+                            <option value="3A">3A</option>
+                            <option value="3B">3B</option>
+                            <option value="3C">3C</option>
+                            <option value="4A">4A</option>
+                            <option value="4B">4B</option>
+                            <option value="4C">4C</option>
+                        </select>
+                    </div>
+                    
                 </div>
             </section>
         </div>
