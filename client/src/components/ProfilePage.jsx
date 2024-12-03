@@ -198,10 +198,13 @@
 // export default ProfilePage;
 
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useOutletContext } from "react-router-dom";
+import { UserContext } from './UserContext';
 
-const ProfilePage = ({ user }) => {
+const ProfilePage = () => {
     // Defaulting to an empty object to prevent undefined errors.
+    const { user } = useContext(UserContext);
     const [stylistData, setStylistData] = useState({
         name: "",
         email: "",

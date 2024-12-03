@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useOutletContext } from "react-router-dom";
+import { UserContext } from './UserContext';
 
-const ClientDashboard = ({ user }) => {
+const ClientDashboard = () => {
+    const { user } = useContext(UserContext);
     const [clientData, setClientData] = useState(null);
 
     useEffect(() => {

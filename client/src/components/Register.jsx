@@ -44,7 +44,7 @@
 
 import React, { useState } from "react";
 import { register } from "../auth";
-import '../Login/Login.css';
+//import '../Login/Login.css';
 
 const Register = ({ setUser }) => {
   const [email, setEmail] = useState("");

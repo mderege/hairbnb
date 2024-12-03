@@ -10,18 +10,24 @@ export const register = async (email, password) => {
   }
 };
 
-  export const login = async (email, password) => {
+export const login = async (email, password) => {
     try {
       // Step 1: Firebase Authentication
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user; // Firebase user data (uid, email, etc.)
   
-      // Step 2: Fetch user profile data from MongoDB using the user's Firebase UID
-      const response = await fetch(`https://hairbnbbe-9f629b6e0127.herokuapp.com/record/${user.uid}`); // Backend API to fetch user from MongoDB
+      console.log(email);
+      console.log(user.email);
+        
+      // Step 2: Fetch user profile data from MongoDB using the email
+      const response = await fetch(`https://hairbnbbe-9f629b6e0127.herokuapp.com/record/email/${email}`);
+      console.log(response);
       if (!response.ok) {
         throw new Error("Failed to fetch user profile from MongoDB");
       }
+  
       const userProfile = await response.json();
+      
   
       // Step 3: Return the complete user object, merging Firebase data and MongoDB data
       return {
@@ -32,3 +38,4 @@ export const register = async (email, password) => {
       throw new Error(error.message); // Handle errors during authentication or fetching
     }
   };
+  

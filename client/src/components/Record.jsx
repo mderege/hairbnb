@@ -515,7 +515,7 @@ export default function Record() {
       if (!id) return;
 
       const response = await fetch(
-        `https://hairbnb.app/record/${id}`
+        `https://hairbnb.app/record/${params.id.toString()}`
       );
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
