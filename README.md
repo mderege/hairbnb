@@ -23,6 +23,9 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
+  <a href="https://github.com/mderege/hairbnb">
+    <img src="hairbnblogonobackground.png" alt="Logo" width="80" height="80">
+  </a>
 
 
 <h3 align="center">HairBnB</h3>
@@ -73,7 +76,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+![Product Name Screen Shot](hairbnbphoto.png)
 
 First day of school coming up? Picture Day? It can be hard to find independent hair stylists who you can trust to work with your hair. With HairBnB, independent hair stylists can showcase their work, prices, and areas of expertise. Clients can look over reviews and clearly display their hair types, allowing a match in needs and services. This platform not only allows users to look at photos of hairstylist's work, but also allows them to chat with them before booking to make sure there is a sense of trust. If you're interested in finding a centralized place for all your hair needs, check us out!
 
@@ -176,10 +179,10 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Signup and login functionality
-    - [ ] Choose between stylist and customer profiles
-- [ ] Customizable, browsable, searchable profiles
-- [ ] Book appointments with our calendar integration
+- [X] Signup and login functionality
+    - [X] Choose between stylist and customer profiles
+- [X] Customizable, browsable, searchable profiles
+- [X] Book appointments with our calendar integration
 
 See the [open issues](https://github.com/mderege/hairbnb/issues) for a full list of proposed features (and known issues).
 
