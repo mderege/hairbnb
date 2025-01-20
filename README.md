@@ -20,6 +20,8 @@
 -->
 
 
+
+<h2 align="center"><a href="https://hairbnb.vercel.app/">HairBnB Deployed Here!</a></h2>
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
